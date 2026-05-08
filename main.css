@@ -56,16 +56,17 @@
 .blog-body {
 	font-family: "Concert One";
 	font-weight: 200;
-	font-size: 12pt;
-	color: white;
+	font-size: 16pt;
+	color: black;
 	margin-left: 60px;
+	width: 600px;
 }
 
 .blog-head {
 	font-family: "Concert One";
 	font-weight: 200;
-	font-size: 14pt;
-	color: white;
+	font-size: 18pt;
+	color: black;
 	margin-left: 60px;
 }
 
