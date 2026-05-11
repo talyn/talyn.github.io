@@ -28,8 +28,15 @@
     transition: border-color 0.2s;
 }
 
+.thumbnail-stereo {
+    width: 600px;
+    cursor: pointer;
+    border: 5px solid transparent; /* Prevents jumping when border appears */
+    transition: border-color 0.2s;
+}
+
 /* 2. Border on hover */
-.thumbnail:hover {
+.thumbnail:hover, .thumbnail-stereo:hover {
     border-color: red;
 }
 
@@ -128,7 +135,7 @@
 	font-family: "Concert One";
 	color: white;
 	font-size: 16pt;
-	margin-left: 80px;
+	margin-left: 60px;
 }
 
 .shift-up {
