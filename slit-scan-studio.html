@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chango&family=Concert+One&family=Copse&display=swap" rel="stylesheet">
+
+  <title>Trevor Alyn - Slit-Scan Studio</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="main.css">
+
+  <!-- Scripts -->
+  <script src="scripts.js" defer></script>
+
+</head>
+
+<body>
+
+  <p class="main-logo"><a href="index.html">Trevor Alyn</a></p>
+
+  <p><span class="category-l1"><a href="blog.html">SLIT-SCAN-STUDIO</a></span></p>
+
+  <p><span class="blog-head">INTRODUCTION</span></p>
+
+  <p class="blog-body"><a href="https://apps.apple.com/us/app/slit-scan-studio/id493342965?mt=12" target="_blank">Slit-Scan Studio</a> is a MacOS app that lets you apply the <a href="https://en.wikipedia.org/wiki/Slit-scan_photography" target="_blank">slit-scan</a> and <a href="https://en.wikipedia.org/wiki/Photo_finish#Strip_photography" target="_blank">finish-line-scan</a> algorithms to a video file. It also includes a "mask scan" feature that lets you create more complex output.</p>
+
+  <p><span class="blog-head">SLIT SCANNING</span></p>
+
+  <p class="blog-body">In order to get a good result from the slit scan feature, follow these guidelines.</p>
+
+  <p class="blog-body">1. Use a video with small dimensions. You can use run large (e.g., 4K) videos through the app if they are short, but due to the nature of the algorighm, the results will be extremely vertically stretched. You will get better results if you use a video that is half or less than half of that size. You can also try increasing the width of the scanning slit, but that can result in blocky-looking output.</p>
+
+  <p class="blog-body">2. Use a video with a high frame rate. The faster objects are moving in a video, the more distorted they become in the output. If you use a high frame rate, motion in the video is effectively slowed down, and slower motion typically provides better results.</p>
+
+  <p class="blog-body">3. Be aware that the app uses huge amounts of memory and processor time. Again, this is part of the nature of the algorithm -- because each output frame is built from hundreds of source frames, all of those frames have to be held in memory at the same time to avoid performance bottlenecks.</p>
+  
+  <p><span class="blog-head">FINISH LINE SCANNING</span></p>
+
+  <p class="blog-body">In order to get a good result from the finish-line scan feature, make sure the input video is not too long. The output video will have a width in pixels equal to the total number of frames in the video. In other words, if you have a one-minute video at 60fps (with a total of 3600 frames), the output video will be 3600 pixels wide.</p>
+
+  <p><span class="blog-head">MASK SCANNING</span></p>
+
+  <p class="blog-body">The mask-scan algorithm is a little hard to explain. The idea is, you use an image or video to control how the output is generated from the source video.</p>
+
+  <p class="blog-body">If you use a mask image with a value of 50, the app posterizes the image into 50 tones, then converts each tone into a black-and-white mask. The app then uses those 50 masks to combine 50 frames of video into a single image. Mask 1 determines the area frame 1 is drawn into, mask 2 determines the area frame 2 is drawn into, and so forth. After a frame has been completed, the same set of masks is used to determine how frames 2-51 are composited.</p>
+
+  <p class="blog-body">If you use a video instead of an image for masking, each frame of the mask video is used to generate a separate set of masks.</p>
+
+  <p class="blog-body">There is also a reverse mask-scan mode. If you choose this option, the source video is used to generate the masks, and the mask image or video is what gets drawn with the masks. This can produce interesting results if you reverse mask-scan a normal video with a video of (for example) flames or flowing water.</p>
+
+  <p><span class="blog-head">WHAT DOES IT ALL MEAN?</span></p>
+
+  <p class="blog-body">I wrote this app to find out what happens when you generate video with these algorithms, but you don't have to understand the algorithms to enjoy the app. I encourage you to experiment with different settings until you get something interesting.</p>
+
+  <p class="blog-body"></p>
+  <p class="blog-body"></p>
+  <p class="blog-body"></p>
+  <p class="blog-body"></p>
+  <p class="blog-body"></p>
+  <p class="blog-body"></p>
+  <p class="blog-body"></p>
+
+  
+  <br />
+  <p class="copyright-notice">All content copyright &copy; 2026 by Trevor Alyn</p>
+
+</body>
+</html>
