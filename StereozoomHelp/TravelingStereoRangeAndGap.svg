@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 890 420" width="890" height="420" font-family="-apple-system, Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker></defs>
+<rect width="890" height="420" fill="#fff"/>
+<text x="54" y="34" font-size="17" fill="#666">Frames of a video, in order</text>
+<rect x="178" y="140" width="336" height="76" rx="10" fill="#E8EEF8"/>
+<rect x="54" y="150" width="56" height="56" rx="6" fill="#fff" stroke="#9AA3AF" stroke-width="1.5"/>
+<text x="82.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#222">1</text>
+<rect x="120" y="150" width="56" height="56" rx="6" fill="#fff" stroke="#9AA3AF" stroke-width="1.5"/>
+<text x="148.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#222">2</text>
+<rect x="186" y="150" width="56" height="56" rx="6" fill="#D62F2F" stroke="#D62F2F" stroke-width="2"/>
+<text x="214.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#fff">3</text>
+<rect x="252" y="150" width="56" height="56" rx="6" fill="#fff" stroke="#9AA3AF" stroke-width="1.5"/>
+<text x="280.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#222">4</text>
+<rect x="318" y="150" width="56" height="56" rx="6" fill="#fff" stroke="#9AA3AF" stroke-width="1.5"/>
+<text x="346.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#222">5</text>
+<rect x="384" y="150" width="56" height="56" rx="6" fill="#fff" stroke="#9AA3AF" stroke-width="1.5"/>
+<text x="412.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#222">6</text>
+<rect x="450" y="150" width="56" height="56" rx="6" fill="#2F6FD6" stroke="#2F6FD6" stroke-width="2"/>
+<text x="478.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#fff">7</text>
+<rect x="516" y="150" width="56" height="56" rx="6" fill="#fff" stroke="#9AA3AF" stroke-width="1.5"/>
+<text x="544.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#222">8</text>
+<rect x="582" y="150" width="56" height="56" rx="6" fill="#fff" stroke="#9AA3AF" stroke-width="1.5"/>
+<text x="610.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#222">9</text>
+<rect x="648" y="150" width="56" height="56" rx="6" fill="#fff" stroke="#9AA3AF" stroke-width="1.5"/>
+<text x="676.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#222">10</text>
+<rect x="714" y="150" width="56" height="56" rx="6" fill="#fff" stroke="#9AA3AF" stroke-width="1.5"/>
+<text x="742.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#222">11</text>
+<rect x="780" y="150" width="56" height="56" rx="6" fill="#fff" stroke="#9AA3AF" stroke-width="1.5"/>
+<text x="808.0" y="185.0" text-anchor="middle" font-size="20" font-weight="600" fill="#222">12</text>
+<text x="40" y="184.0" text-anchor="end" font-size="20" fill="#666">…</text>
+<text x="850" y="184.0" font-size="20" fill="#666">…</text>
+<text x="214.0" y="236" text-anchor="middle" font-size="14" font-weight="600" fill="#D62F2F">Left eye</text>
+<text x="478.0" y="236" text-anchor="middle" font-size="14" font-weight="600" fill="#2F6FD6">Right eye</text>
+<line x1="214.0" y1="74" x2="214.0" y2="126" stroke="#555555" stroke-width="2.5"/>
+<path d="M207.0,124 L214.0,137 L221.0,124 z" fill="#555555"/>
+<text x="200.0" y="66" font-size="16" font-weight="700" fill="#555555">Starting location: frame 3</text>
+<path d="M178,112 L178,100 L514,100 L514,112" fill="none" stroke="#222" stroke-width="2"/>
+<text x="386.0" y="92" text-anchor="middle" font-size="16" font-weight="700" fill="#222">Range: frames 3–7</text>
+<line x1="214.0" y1="262" x2="478.0" y2="262" stroke="#222" stroke-width="2" marker-start="url(#ah)" marker-end="url(#ah)"/>
+<line x1="214.0" y1="254" x2="214.0" y2="270" stroke="#222" stroke-width="2"/>
+<line x1="478.0" y1="254" x2="478.0" y2="270" stroke="#222" stroke-width="2"/>
+<text x="346.0" y="288" text-anchor="middle" font-size="16" font-weight="700" fill="#222">Gap: 7 − 3 = 4</text>
+<line x1="54" y1="316" x2="836" y2="316" stroke="#DDD"/>
+<text x="54" y="340" font-size="15" fill="#222"><tspan font-weight="700">Shoulder buttons (W / E):</tspan> slide the whole pair. The starting location changes; the gap stays the same.</text>
+<text x="54" y="368" font-size="15" fill="#222"><tspan font-weight="700">DPad Left / Right (D / F):</tspan> move the right-eye frame. The gap, and the depth, shrinks or grows.</text>
+<text x="54" y="396" font-size="15" fill="#222"><tspan font-weight="700">A larger gap means more depth,</tspan> but less overlap between the two frames.</text>
+</svg>

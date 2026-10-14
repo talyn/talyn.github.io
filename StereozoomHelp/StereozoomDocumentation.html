@@ -1,0 +1,1061 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="CONTENT-TYPE"/>
+    <title>Stereozoom Documentation</title>
+    <meta content="Trevor Alyn" name="AUTHOR"/>
+    <meta content="20260628;13415100" name="CREATED"/>
+    <meta content="Trevor Alyn" name="CHANGEDBY"/>
+    <meta content="20260628;14062000" name="CHANGED"/>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin-left: 50px;
+        margin-right: 50px;
+      }
+
+      h1, h2, h3 {
+        padding-top: 30px;
+      }
+
+      table {
+        width: 100%;
+      }
+
+      th {
+        text-align: left;
+      }
+
+      table, th, td {
+        border-collapse: collapse;
+        padding: 10px;
+        border: 1px solid;
+      }
+
+      li {
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      /* Section numbering (1, 1.1, 1.1.1, 1.1.1.1). Only headings with an id
+         are numbered, which leaves out the title and the Table of Contents. */
+      body {
+        counter-reset: h2;
+      }
+
+      h2[id] {
+        counter-increment: h2;
+        counter-reset: h3;
+      }
+
+      h3[id] {
+        counter-increment: h3;
+        counter-reset: h4;
+      }
+
+      h4[id] {
+        counter-increment: h4;
+        counter-reset: h5;
+      }
+
+      h5[id] {
+        counter-increment: h5;
+      }
+
+      h2[id]::before {
+        content: counter(h2) "\00a0\00a0";
+      }
+
+      h3[id]::before {
+        content: counter(h2) "." counter(h3) "\00a0\00a0";
+      }
+
+      h4[id]::before {
+        content: counter(h2) "." counter(h3) "." counter(h4) "\00a0\00a0";
+      }
+
+      /* The Table of Contents uses the same numbering. Each nested <ol> starts
+         a new instance of the counter, and counters() joins them with dots. */
+      ol.toc, ol.toc ol {
+        counter-reset: toc;
+        list-style: none;
+        padding-left: 2em;
+      }
+
+      ol.toc li {
+        counter-increment: toc;
+      }
+
+      ol.toc li::before {
+        content: counters(toc, ".") "\00a0\00a0";
+      }
+
+      h5[id]::before {
+        content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "\00a0\00a0";
+      }
+
+      /* Printing (the Print button at the bottom of Help). Keep a heading with
+         the text after it, and don't split an image or a table row across pages. */
+      @media print {
+        body {
+          margin-left: 0;
+          margin-right: 0;
+        }
+
+        h1, h2, h3, h4, h5 {
+          break-after: avoid;
+        }
+
+        img, tr {
+          break-inside: avoid;
+        }
+
+        img {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body dir="LTR" lang="en-US">
+    <h1>Stereozoom Documentation</h1>
+
+    <p><i>Version 1.0 • © 2026 by Trevor Alyn</i></p>
+
+    <div>
+      <h2>Table of Contents</h2>
+      <ol class="toc">
+        <li><a href="#DisplayDeviceRequirements">Display Device Requirements</a></li>
+        <li><a href="#StereoscopicImageRequirements">Stereoscopic Image Requirements</a></li>
+        <li><a href="#StereoscopicVideoRequirements">Stereoscopic Video Requirements</a></li>
+        <li><a href="#Root3DFolder">Selecting the Root 3D Folder</a></li>
+        <li><a href="#UsingAGameController">Using a Game Controller</a></li>
+        <li><a href="#ControlScreen">Using the Control Screen</a></li>
+        <li><a href="#BasicFunctionality">Basic Functionality</a></li>
+        <li><a href="#FileBrowserView">File Browser View</a>
+          <ol>
+            <li><a href="#FileBrowserViewControlReference">File Browser View Control Reference</a></li>
+          </ol>
+        </li>
+        <li><a href="#Alignment">Alignment</a>
+          <ol>
+            <li><a href="#HorizontalAlignment">Horizontal Alignment</a>
+              <ol>
+                <li><a href="#AutomaticAlignmentSetting">Automatic Horizontal Alignment Method</a></li>
+                <li><a href="#StuckHorizontalAlignment">"Stuck" Horizontal Alignment</a></li>
+              </ol>
+            </li>
+            <li><a href="#VerticalAlignment">Vertical Alignment</a></li>
+            <li><a href="#RotationalAlignment">Rotational Alignment</a></li>
+          </ol>
+        </li>
+        <li><a href="#MonoscopicVsStereoscopicFlags">Monoscopic vs. Stereoscopic Flags</a>
+          <ol>
+            <li><a href="#HowTheFlagIsDetermined">How the Flag Is Determined</a></li>
+            <li><a href="#ChangingTheFlagForASingleFile">Changing the Flag for a Single File</a></li>
+            <li><a href="#RefreshingTheFlagForAFolder">Refreshing the Flag for a Folder</a></li>
+          </ol>
+        </li>
+        <li><a href="#ImageTagging">Image Tagging</a>
+          <ol>
+            <li><a href="#TagHierarchy">Tag Hierarchy</a></li>
+            <li><a href="#EditingImageTags">Editing Image Tags</a></li>
+            <li><a href="#BrowsingByImageTag">Browsing by Image Tag</a></li>
+            <li><a href="#MostFrequentlyUsedTags">Most Frequently Used Tags</a></li>
+            <li><a href="#SessionTags">Session Tags</a></li>
+          </ol>
+        </li>
+        <li><a href="#ImageFilters">Image Filters</a></li>
+        <li><a href="#HSBAdjustmentMode">HSB Adjustment Mode</a>
+          <ol>
+            <li><a href="#HSBAdjustmentModeControlReference">HSB Adjustment Mode Control Reference</a></li>
+          </ol>
+        </li>
+        <li><a href="#Cropping">Cropping</a></li>
+        <li><a href="#SessionCommands">Session Commands</a></li>
+        <li><a href="#AuxiliaryImages">Auxiliary Images</a></li>
+        <li><a href="#StereoVideoPlaybackMode">Stereo Video Playback Mode</a>
+          <ol>
+            <li><a href="#Scanning">Scanning</a></li>
+            <li><a href="#StereoVideoPlaybackModeControlReference">Stereo Video Playback Mode Control Reference</a></li>
+          </ol>
+        </li>
+        <li><a href="#ZoomSequences">Zoom Sequences</a>
+          <ol>
+            <li><a href="#CreatingAZoomSequence">Creating a Zoom Sequence</a></li>
+            <li><a href="#PlayingAndRenderingAZoomSequence">Playing and Rendering a Zoom Sequence</a></li>
+            <li><a href="#EditingZoomSequenceTiming">Editing Zoom Sequence Timing</a></li>
+            <li><a href="#CombiningZoomSequences">Combining Zoom Sequences</a></li>
+          </ol>
+        </li>
+        <li><a href="#TravelingStereoMode">Traveling Stereo Mode</a>
+          <ol>
+            <li><a href="#ReencodingVideo">Reencoding Video</a></li>
+            <li><a href="#TravelingStereoModeControlReference">Traveling Stereo Mode Control Reference</a></li>
+          </ol>
+        </li>
+        <li><a href="#BracketedDepthMode">Bracketed Depth Mode</a>
+          <ol>
+            <li><a href="#SavingBracketedStereoPairs">Saving Bracketed Stereo Pairs</a></li>
+            <li><a href="#FinishingWithAFolder">Finishing With a Folder</a></li>
+            <li><a href="#BracketedDepthModeControlReference">Bracketed Depth Mode Control Reference</a></li>
+          </ol>
+        </li>
+        <li><a href="#ConvertToStereoMode">Convert to Stereo Mode</a>
+          <ol>
+            <li><a href="#ConvertToStereoModeControlReference">Convert to Stereo Mode Control Reference</a></li>
+          </ol>
+        </li>
+        <li><a href="#DepthGradingMode">Depth Grading Mode</a>
+          <ol>
+            <li><a href="#DepthGradingModeControlReference">Depth Grading Mode Control Reference</a></li>
+          </ol>
+        </li>
+        <li><a href="#MenuReference">Menu Reference</a>
+          <ol>
+            <li><a href="#MainMenu">Main Menu</a></li>
+            <li><a href="#ImageOperationsSubmenu">Image Operations Submenu</a></li>
+            <li><a href="#ImageFilterSubmenu">Image Filter Submenu</a></li>
+            <li><a href="#FitAndAlignSubmenu">Fit &amp; Align Submenu</a></li>
+            <li><a href="#AspectRatioSubmenu">Aspect Ratio Submenu</a></li>
+            <li><a href="#BrowseSubmenu">Browse Submenu</a></li>
+            <li><a href="#PreferencesSubmenu">Preferences Submenu</a></li>
+            <li><a href="#AlignmentSubmenu">Alignment Submenu</a></li>
+            <li><a href="#AdvancedPreferencesSubmenu">Advanced Preferences Submenu</a></li>
+            <li><a href="#FontSizeSubmenu">Font Size Submenu</a></li>
+            <li><a href="#PanAndZoomSpeedSubmenu">Pan Speed and Zoom Speed Submenus</a></li>
+            <li><a href="#SaveFormatSubmenu">Save Format Submenu</a></li>
+            <li><a href="#JPEGQualitySubmenu">JPEG Quality Submenu</a></li>
+            <li><a href="#UtilitiesSubmenu">Utilities Submenu</a></li>
+          </ol>
+        </li>
+      </ol>
+    </div>
+
+    <h2 id="DisplayDeviceRequirements">Display Device Requirements</h2>
+    <p>Stereozoom lets you view stereoscopic (3D) images on a stereo-capable display such as a 3D TV (via HDMI) or a pair of XREAL ONE glasses. <b>You MUST have such a display device to use this app.</b></p>
+    <p>In order to work with this app, the display device must be capable of displaying half-width side-by-side stereo. See your display device's documentation to verify that it supports this mode.</p>
+    <p><b>NOTE:</b> Some display devices may have built-in alignment adjustment. For example, some Sony 3D TVs have a <b>3D Depth Adjustment</b> setting. I recommend that you turn off the device-based alignment adjustment (or, in the case of Sony's <b>3D Depth Adjustment</b>, set it to zero). Stereozoom can handle the alignment on its own.</p> 
+
+    <h2 id="StereoscopicImageRequirements">Stereoscopic Image Requirements</h2>
+    <p>To be viewable in Stereozoom, JPEG and PNG files must be full-width side-by-side pairs with the left view on the left and the right view on the right, like an old stereoscope card. For example:</p>
+    <img src="SBSFull.jpg"/>
+    <p>You can create such stereo pairs yourself with a 3D camera, or you can find them on the Internet. If you shoot left and right frames separately, you can combine them into stereo pairs with the fantastic free tool StereoPhoto Maker, which also includes batch automatic alignment tools.</p>
+    <p>Stereozoom also supports HEIC files that use Apple's spatial photos format.</p>
+
+    <h2 id="StereoscopicVideoRequirements">Stereoscopic Video Requirements</h2>
+    <p>To be viewable in Stereozoom, stereoscopic videos must be in half-width side-by-side format. Apple's spatial videos are also supported, but can be displayed only in 2D on macOS Sequoia.</p>
+
+    <h2 id="Root3DFolder">Selecting the Root 3D Folder</h2>
+    <p>The Root 3D Folder is the folder that contains all of your side-by-side stereo image files. These image files can be in subfolders of this folder, but <b>the app will not be able to see anything that is outside of this folder</b>.</p>
+    <p><b>IMPORTANT: When you first launch the app, you must select the folder that contains ALL of your stereoscopic images. Choose carefully! You can <a href="#ChangeRoot3DFolder">change it later</a>, but if you do so, you run the risk of breaking links in the database and losing any adjustments and tagging.</b></p>
+
+    <h2 id="UsingAGameController">Using a Game Controller</h2>
+    <p>Stereozoom is designed to be used with a macOS-compatible game controller. This is so that you can enjoy the stereo view without having a GUI in the way; you don't have to look away from the screen to use a game controller. To run the app with a game controller, simply pair the game controller with your Mac via Bluetooth, and then launch Stereozoom.</p>
+    <p>If you do not have a game controller, I recommend the Terios Wireless Controller (compatible with PS4).</p>
+    <p>If you have not used a game controller before, the app includes a Help screen for every mode, indicating what each control on the game controller does. To show the Game Controller Help, press the Options or Menu button on the game controller. Press it again to hide the Game Controller Help.</p>
+    <img src="GamepadHelp.jpg" />
+
+    <h2 id="ControlScreen">Using the Control Screen</h2>
+    <p>If your stereo display is connected to your Mac as a second monitor (over HDMI, for example), the Control Screen lets someone drive Stereozoom with the mouse from the Mac's own screen while the audience watches the stereo display. Choose <b>Window &gt; Show Control Screen</b> (Command+K) to open it. Drag the main Stereozoom window onto the stereo display and make it full screen with its green button; macOS remembers where each window goes.</p>
+    <p>The Control Screen shows a live preview of the stereo display, either as the <b>Left Eye</b> alone or as a red/cyan <b>Anaglyph</b> of both eyes, and below it the controls for whatever the stereo display is showing right now. The controls change as you move between the File Browser View, the Menu, and the various app modes.</p>
+    <p>Every button shows its corresponding keyboard key. The <b>Common Controls</b> panel on the left contains controls that are common to most modes.</p>
+    <p>Buttons marked <b>HOLD REPEATS</b> repeat if you hold the mouse button down, the same way the game controller's buttons do.</p>
+    <p>Drag inside the <b>Pan</b> circle to pan the image around.</p>
+    <p>Drag the <b>Alignment</b> wheel left or right to change the horizontal alignment (if <a href="#AlignmentSubmenu">Manual Horizontal Alignment</a> is turned on). Drag the <b>Zoom</b> wheel up or down to zoom in and out.</p>
+    <p>The <b>Help</b> and <b>Edit Tags</b> buttons at the top of the Control Screen let you view this Help file and edit the image tags you can apply to images. These functionalities are also available from the menu bar.</p>
+    <p>The Control Screen reopens at launch if it was open when you quit.</p>
+    <p><b>NOTE:</b> If you close the main stereo window by mistake, choose <b>Window &gt; Show Stereo Window</b> to bring it back.</p>
+    <img src="ControlScreen.jpg" />
+    
+    <h2 id="BasicFunctionality">Basic Functionality</h2>
+    <p>For basic stereo (3D) image viewing:</p>
+    <ol>
+      <li>Plug your Mac into your stereo display device (for example, your 3D TV).</li>
+      <li>Launch Stereozoom. If this is the first time you've launched it, a dialog box instructs you to select your <a href="#Root3DFolder">Root 3D Folder</a>. Choose this folder carefully -- you can change it later, but you risk breaking the links in the app database. (You can add files to this folder or remove them from this folder at any time without causing problems.)</li>
+      <li>Click the green button at upper left to go full-screen.</li>
+      <li>Put your 3D display or other stereo display device into side-by-side half-width stereo mode.</li>
+      <li>Park the mouse cursor somewhere at the bottom of the screen to keep it from interfering with the images.</li>
+      <li>Display the File Browser View by pressing the B button on the game controller or the F key on the keyboard. Here, you can navigate up and down with the game controller's DPad Up and DPad Down buttons (or with the Up and Down arrow keys).
+
+        <br/><br/>
+        <img src="FileNavigation.jpg"/>
+      </li>
+      <li>You can navigate to the parent folder by pressing the DPad Left button on the game controller or the Left Arrow key. Note that you cannot navigate outside of the <a href="#Root3DFolder">Root 3D Folder</a> you selected when you first launched the app.</li>
+      <li>To view a side-by-side image file in 3D, select it and then press A on the game controller or Enter on the keyboard. See the following table for information on how to pan and zoom and use the other features of this view.</li>
+      <li>To navigate to the next file, press the Right Shoulder button (keyboard P). To navigate to the previous file, press the Left Shoulder button (keyboard O).</li>
+    </ol>
+    <p>When you are viewing a stereo image, the following controls are available.</p>
+    <table>
+      <tr>
+        <th>Game Controller</th>
+        <th>Keyboard</th>
+        <th>Description</th>
+      </tr>
+      <tr><td>Right Shoulder button</td><td>P</td><td>Shows next image in folder.</td></tr>
+      <tr><td>Left Shoulder button</td><td>O</td><td>Shows previous image in folder.</td></tr>
+      <tr><td>Left Thumbstick up</td><td>Up Arrow</td><td>Shifts image up.</td></tr>
+      <tr><td>Left Thumbstick down</td><td>Down Arrow</td><td>Shifts image down.</td></tr>
+      <tr><td>Left Thumbstick to left</td><td>Left Arrow</td><td>Shifts image left.</td></tr>
+      <tr><td>Left Thumbstick to right</td><td>Right Arrow</td><td>Shifts image right.</td></tr>
+      <tr><td>Right Thumbstick up</td><td>.</td><td>Zooms in.</td></tr>
+      <tr><td>Right Thumbstick down</td><td>,</td><td>Zooms out.</td></tr>
+      <tr><td>Right Thumbstick to left</td><td>[</td><td>Adjusts horizontal alignment left (if <a href="#AlignmentSubmenu">Manual Horizontal Alignment</a> is turned on).</td></tr>
+      <tr><td>Right Thumbstick to right</td><td>]</td><td>Adjusts horizontal alignment right (if <a href="#AlignmentSubmenu">Manual Horizontal Alignment</a> is turned on).</td></tr>
+      <tr><td>DPad Up button</td><td>0</td><td>Resets the view to 100%.</td></tr>
+      <tr><td>DPad Down button</td><td>Z</td><td>Resets the alignment to zero. Then, if <a href="#HorizontalAlignment">Automatic Horizontal Alignment</a> is on, automatically aligns the current view. Hold the button down to open <b>Menu &gt; Preferences &gt; Alignment</b>.</td></tr>
+      <tr><td>DPad Left button</td><td>Shift+0</td><td>Slowly zooms the view back to 100%.</td></tr>
+      <tr><td>X button</td><td>M</td><td>Shows the Main Menu.</td></tr>
+      <tr><td>A button (image file)</td><td>T, Enter</td><td>Shows the Tagging Menu so you can tag the
+        active image file.</td></tr>
+      <tr><td>A button (video file)</td><td>T, Enter</td><td>Enters <a href="#StereoVideoPlaybackMode">Stereo Video Playback Mode</a>.</td></tr>
+      <tr><td>A button (Zoom Sequence file)</td><td>T, Enter</td><td>Plays back the displayed <a href="#ZoomSequences">Zoom Sequence</a>.</td></tr>
+      <tr><td>Y button</td><td>I</td><td>Shows/Hides the Info View at the bottom of the screen.</td></tr>
+      <tr><td>Left Thumbstick button</td><td>Q</td><td>Turns <a href="#HorizontalAlignment">Automatic Horizontal Alignment</a> on and off.</td></tr>
+      <tr><td>Left Trigger button (image file)</td><td>A</td><td>Toggles display of the <a href="#AuxiliaryImages">Auxiliary Image</a> (if any) for the current image.</td></tr>
+      <tr><td>Right Thumbstick button</td><td>L</td><td>Cycles through one-side-only modes, and then back to stereo mode. In one-side-only mode, one side of the stereo pair is shown in both views; this lets you compare the two sides of the image without having to remove your 3D glasses.</td></tr>
+      <tr><td>B button</td><td>F</td><td>Displays the <a href="#FileBrowserView">File Browser View</a>.</td></tr>
+      <tr><td>Options or Menu button</td><td>&mdash;</td><td>Shows a <a href="#UsingAGameController">labeled drawing</a> of the controller saying what each control does in the current context. While this diagram displays all other controls are blocked; you can press buttons on the game controller and see them highlight in the diagram without actually executing any commands. To close this view, press the Options or Menu button again.</td></tr>
+    </table>
+
+    <h2 id="FileBrowserView">File Browser View</h2>
+    <p>The File Browser View lets you navigate the file system inside your Root 3D Folder.</p>
+    <img src="FileNavigation.jpg"/>
+    <br/>
+    <br/>
+    <p><b>Keeping Your Place</b>: When you quit or exit a folder, the app remembers the last file you viewed in that folder. If you return to the folder later, it will take you to that file.</p>
+    <p><b>Cell Background Color</b>: Rows in the File Browser View that represent folders have a colored background that indicates how many image files in that folder have been viewed recently. The more image files there are in a folder that you haven't viewed in a long time (or have never viewed), the darker the background color. Folders with all-unviewed images have a black background. Similarly, rows for image files indicate how recently those files have been viewed by the brightness of their background color (brighter = viewed more recently). Note that this feature applies only to image files; the database does not keep track of video files.</p>
+    <p><b>Thumbnails</b>: Thumbnail images for stereo image files show what the image looked like when the thumbnail was originally created. So, for example, if you apply an <a href="#ImageFilterSubmenu">Image Filter</a> or an <a href="#ImageOperationsSubmenu">HSB adjustment</a> to an image and then go back to the File Browser View, the thumbnail will not show the updated image. To update the thumbnail, go to the Menu and choose <b>Utilities &gt; Clear Thumbnails for This Folder</b> or <b>Clear All Thumbnails</b>. The next time you view the File Browser View, the thumbnails will be updated.</p>
+    <p><b>Folders with Many Files</b>: The first time you open a folder with a large number of files, the loading indicator may display for quite a while. This is normal. After that, entering the folder will be much faster.</p>
+    <p><b>Caching</b>: The app proactively loads the next and previous images to speed up navigation.</p>
+    <h3 id="FileBrowserViewControlReference">File Browser View Control Reference</h3>
+    <table>
+      <tr>
+        <th>Game Controller</th>
+        <th>Keyboard</th>
+        <th>Description</th>
+      </tr>
+      <tr><td>DPad Up button</td><td>Up Arrow</td><td>Moves up one file/folder.</td></tr>
+      <tr><td>DPad Down button</td><td>Down Arrow</td><td>Moves down one file/folder.</td></tr>
+      <tr><td>DPad Left button</td><td>Left Arrow</td><td>Moves up one folder level.</td></tr>
+      <tr><td>A button</td><td>Enter</td><td>Displays the current file, or enters the selected folder.</td></tr>
+      <tr><td>X button</td><td>M</td><td>Closes File Browser View and opens the <a href="#MenuReference">Main Menu</a>.</td></tr>
+      <tr><td>B button</td><td>Escape</td><td>Closes the File Browser View.</td></tr>
+      <tr><td>Options or Menu button</td><td>&mdash;</td><td>Shows a <a href="#UsingAGameController">labeled drawing</a> of the controller saying what each control does in the current context. While this diagram displays all other controls are blocked; you can press buttons on the game controller and see them highlight in the diagram without actually executing any commands. To close this view, press the Options or Menu button again.</td></tr>
+    </table>
+
+    <h2 id="Alignment">Alignment</h2>
+    <p>Proper alignment is critical to being able to enjoy a stereo image. Consequently, Stereozoom has a number of features for helping you to view misaligned images.
+
+    <h3 id="HorizontalAlignment">Horizontal Alignment</h3>
+    <p><i>Horizontal alignment</i> refers to how the left and right images overlap each other. In a perfectly aligned image, everything is sharp and you can see all the depth. However, in a poorly aligned image, it's hard to resolve the depth, and eye strain can occur. Horizontal alignment is especially important when you zoom in on a stereoscopic image, because different parts of the same image may require different horizontal alignment values.</p>
+    <p>There are three menu items related to horizontal alignment, all on the <a href="#AlignmentSubmenu">Alignment submenu</a>:</p>
+    <ul>
+      <li><b>Menu &gt; Alignment &gt; Automatic Horizontal Alignment</b> (toggle): Lets you turn Automatic Horizontal Alignment on and off.</li>
+      <li><b>Menu &gt; Alignment &gt; Manual Horizontal Alignment</b> (toggle): Lets you turn Manual Alignment on and off.</li>
+      <li><b>Menu &gt; Alignment &gt; Automatic Horizontal Alignment Method</b>: Lets you choose the <a href="#AutomaticAlignmentSetting">method</a> used by Automatic Horizontal Alignment.</li>
+    </ul>
+    <p>The first two controls work in combination as follows:</p>
+    <ul>
+      <li><b>If Automatic Horizontal Alignment and Manual Horizontal Alignment are both off:</b> You cannot adjust the alignment of images at all.</li>
+      <li><b>If Automatic Horizontal Alignment is on and Manual Horizontal Alignment is off:</b> Images align themselves automatically. Automatic Horizontal Alignment works continuously as you pan and zoom around in an image, and may result in a "skipping" or "jumping" sensation as the alignment is updated.</li>
+      <li><b>If Automatic Horizontal Alignment is off and Manual Horizontal Alignment is on:</b> You can align images manually with the X axis of the Right Thumbstick or the dial in the <a href="#ControlScreen">Control Screen</a>.</li>
+      <li><b>If Automatic Horizontal Alignment and Manual Horizontal Alignment are both on:</b> You can manually adjust the horizontal alignment <b>after</b> the automatic alignment is done. Pan and zoom to the part of the image you want to look at, and after you release the thumbsticks, you can use the Right Thumbstick or the dial in the <a href="#ControlScreen">Control Screen</a> to apply additional alignment adjustment.</li>
+    </ul>
+    <p>When manually adjusting depth with the right thumbstick, remember that <b>moving the thumbstick to the right brings the entire scene toward you, and moving it to the left pushes the entire scene away from you</b>.</p>
+
+    <h4 id="AutomaticAlignmentSetting">Automatic Horizontal Alignment Method</h4>
+    <p>There are two options for Automatic Horizontal Alignment:</p>
+    <ul>
+      <li><b>Method 1</b> (the default): The fastest mode, and probably the best mode for general use.</li>
+      <li><b>Method 2</b>: May be a bit better in some situations, but can get slow if there is a lot of dust or other noise in the image.</li>
+    </ul>
+    <p><b>NOTE:</b> I'm aware that Automatic Horizontal Alignment doesn't always work the way you expect. It's a complicated problem. I plan to keep working on it.</p>
+
+    <h4 id="StuckHorizontalAlignment">"Stuck" Horizontal Alignment</h4>
+    <p>When you are zoomed in on an image, Automatic Horizontal Alignment can occasionally get "stuck" in a mode where all you see is a narrow, misaligned image. If this happens, just press DPad Down (keyboard Z) and the horizontal alignment will be reset. If the problem persists, consider turning Automatic Horizontal Alignment off for this image.</p>
+
+    <h3 id="VerticalAlignment">Vertical Alignment</h3>
+    <p><i>Vertical alignment</i> may be necessary for images that were shot (for example) with two different cameras, scans of stereo slides with misaligned chips, or via cha-cha. Images shot with a 3D camera usually do not need to be vertically aligned.</p>
+    <p>To turn this feature on or off, navigate to <b>Menu &gt; Alignment &gt; Automatic Vertical Alignment</b>.</p>
+    <p><b>NOTE:</b> The Vertical Alignment feature is not perfect, especially for images that also have rotational alignment issues.</p>
+    <p><b>NOTE:</b> Ideally, try to use Automatic Vertical Alignment only with images that have visible vertical alignment problems. For images that are already mostly vertically aligned, the setting may cause misalignment.</p> 
+    <p><b>NOTE:</b> Vertical alignment corrections are baked into an image file if you have the app save or resave the current image. For example, if you use the <b>Bake In Adjustments</b> feature, any applied vertical alignment corrections are baked in along with any Image Filters or HSB Adjustments.</p>
+
+    <h3 id="RotationalAlignment">Rotational Alignment</h3>
+    <p><i>Rotational alignment</i> may be necessary for images that were shot (for example) with two different cameras, scans of stereo slides with misaligned chips, or via cha-cha. Images shot with a 3D camera usually do not need to be rotationally aligned.</p>
+    <p>To turn this feature on or off, navigate to <b>Menu &gt; Alignment &gt; Automatic Rotational Alignment</b>.</p>
+    <p><b>NOTE:</b> The Automatic Rotational Alignment feature is currently problematic. It may improve in future versions, but for now, try to use Automatic Rotational Alignment only with images that have visible rotational alignment problems. For images that are already mostly rotationally aligned, the setting may cause misalignment.</p> 
+    <p><b>NOTE:</b> Rotational alignment corrections are baked into an image file only by <b>Full Realign</b> and <b>Realign All Images in This Folder</b> (in the <a href="#ImageOperationsSubmenu">Image Operations submenu</a>), and when you save a stereo pair in <a href="#TravelingStereoMode">Traveling Stereo Mode</a> or <a href="#BracketedDepthMode">Bracketed Depth Mode</a>. In each case the rotation is measured again on the full-resolution images, and only if Automatic Rotational Alignment is on. <b>Bake In Adjustments</b> and the Crop commands do not apply a rotational correction.</p>
+
+    <h2 id="MonoscopicVsStereoscopicFlags">Monoscopic vs. Stereoscopic Files</h2>
+    <p>Most files in a stereo collection are likely <i>stereoscopic</i>: a left-eye view and a right-eye view in one file. However, some may be <i>monoscopic</i> (for example, if you are using <a href="#BracketedDepthMode">Bracketed Depth Mode</a>).</p>
+    <p>Because monoscopic and stereoscopic files can be mixed together in the same folder, Stereozoom must try to figure out which kind each file is automatically. However, there currently is no foolproof way to do this, so Stereozoom allows you to override this decision for individual files.</p>
+
+    <h3 id="HowTheFlagIsDetermined">How The Mono/Stereo Determination is Made</h3>
+    <p>Stereozoom checks the following, in order, and stops at the first one that gives an answer:</p>
+    <ol>
+      <li><b>Stereo metadata.</b> An image that is marked in its own metadata as a stereo pair (for example, a spatial HEIC photo) is always treated as stereoscopic.</li>
+      <li><b>Aspect Ratio.</b> An image at least twice as wide as it is tall is treated as stereoscopic. This settles the large majority of side-by-side files without examining the picture itself.</li>
+      <li><b>Content.</b> For narrower images, Stereozoom compares the left and right halves of the picture. If they look like two views of the same scene, the image is treated as stereoscopic; otherwise it is treated as monoscopic. If the comparison can't reach a decision either way, the image is treated as stereoscopic.</li>
+    </ol>
+    <p>Videos are checked the same way, using their first frame. (Videos have no stereo metadata, so the first step never applies to them.)</p>
+    <p><b>The folder vote.</b> When you enter a folder for the first time, Stereozoom checks the first five files, and sets a monoscopic or stereoscopic flag on the folder according to the majority (in other words, it assumes that the rest of the files in the folder are the same type as most of those five). In a folder with fewer than five files, every file is checked, and a tie results in the folder's flag being stereoscopic. Until the flag is set, each file is displayed according to its own check. A folder's mono/stereo flag is saved between launches.</p>
+    <p>A file that is flagged as monoscopic is always displayed with zero horizontal alignment, because the two eyes are showing the identical image. Operations that need two separate halves (such as <b>Swap Sides</b>, both <b>Crop</b> commands and <b>Full Realign</b>) are greyed out in the <a href="#ImageOperationsSubmenu">Image Operations Submenu</a>, and <a href="#DepthGradingMode">Depth Grading Mode</a> is not available.</p>
+
+    <h3 id="ChangingTheFlagForASingleFile">Changing the Flag for a Single File</h3>
+    <p>If a file is displayed the wrong way, open the <a href="#MainMenu">Main Menu</a> (X button or keyboard M) while it is displayed and choose <b>Toggle Image/Video Mode</b>. The menu item shows the file's current flag (<b>Monoscopic</b> or <b>Stereoscopic</b>), and each time you choose it, the file switches to the other one. The item appears only for image and video files, and only while you are browsing normally (not in one of the special modes).</p>
+    <p><b>NOTE:</b> This change is temporary. It's not saved, and it's lost as soon as the file is reloaded (for example, once you have navigated far enough away from it, or after an image operation). It also doesn't change the folder's vote. To fix a whole folder permanently, refresh the folder's flag instead, as described below.</p>
+
+    <h3 id="RefreshingTheFlagForAFolder">Refreshing the Flag for a Folder</h3>
+    <p>If a whole folder is being displayed the wrong way (for example, because you replaced its monoscopic photos with stereoscopic pairs, or because the first few files you viewed were not typical of the rest), open the <a href="#MainMenu">Main Menu</a> and choose <b>Utilities &gt; Clear Mono/Stereo Flag for This Folder</b>. Stereozoom discards the folder's mono/stereo flag, deletes the folder's cached thumbnails, and checks the displayed files again. A new vote then begins, and the folder's flag is settled again once five more files have been checked.</p>
+    <p>Only the current folder is affected. Each subfolder has its own flag.</p>
+
+    <h2 id="ImageTagging">Image Tagging</h2>
+    <p>To display the Tagging Menu for an image, press the A button (keyboard T) while an image is displayed. (Only image files can be tagged.)</p>
+    <p>To navigate to a tag, use the DPad Up and DPad Down buttons or the keyboard Up and Down Arrow keys. To apply a tag, highlight it and press A (keyboard Enter); press A again to remove it. Applied tags display in yellow.</p>
+    <p>The Tagging Menu can have up to three sections, from top to bottom: <b>SESSION TAGS</b> (see <a href="#SessionTags">Session Tags</a>), <b>FREQUENTLY USED TAGS</b> (see <a href="#MostFrequentlyUsedTags">Most Frequently Used Tags</a>) and <b>ALL TAGS</b>, which lists every tag. The first two appear only when they are turned on and have something in them.</p>
+    <img src="TaggingMenu.jpg"/>
+    <p>You can use this menu to assign as many tags as you like to the image. Assigned image tags display in the bottom of the Info View (Y button or keyboard I) and the <a href="#FileBrowserView">File Browser View</a> (B button or keyboard F).</p>
+    <img src="TagNamesInInfoView.jpg"/>
+    <p></p>
+    <img src="TagNamesInFileBrowserView.jpg"/>
+
+    <h3 id="TagHierarchy">Tag Hierarchy</h3>
+    <p>Tags can be organized into a hierarchy: any tag can have a parent tag, and a parent can have any number of child tags, which can have children of their own. For example, you might put "Beach", "Mountains" and "Desert" under a parent tag called "Landscapes". You set a tag's parent in the <a href="#EditingImageTags">Edit Image Tags</a> view.</p>
+    <p>In the <b>ALL TAGS</b> section of the Tagging Menu, only the top-level tags are shown at first. A tag that has children is marked with &#9656;:</p>
+    <ul>
+      <li>To show a tag's children, highlight it and press DPad Right (keyboard Right Arrow or E). The marker changes to &#9662;, and the children appear indented beneath it.</li>
+      <li>To hide them again, press DPad Left (keyboard Left Arrow). If a child is highlighted, its parent's branch closes and the parent is highlighted.</li>
+      <li>Only one branch is open at a time: opening a tag closes any other open branch, except the tags above the one you opened.</li>
+      <li>If a closed parent tag has a child (or a child of a child) applied to the current image, the parent's name is shown in amber, as a hint to open it.</li>
+    </ul>
+    <p>Each tag in the hierarchy is a tag in its own right. Applying a child tag does not apply its parent, and applying a parent does not apply its children. The Session Tags and Frequently Used Tags sections, and the tag list used for <a href="#BrowsingByImageTag">browsing by tag</a>, are flat lists that show no hierarchy. When you browse by tag, selecting a parent tag matches only images that have that tag itself, not its children.</p>
+    <p>Two tags in different branches can have the same name; they are still separate tags.</p>
+
+    <h3 id="EditingImageTags">Editing Image Tags</h3>
+    <p>The app comes with a default set of image tags, but you can delete them and create your own. To edit the list of tags, click <b>Edit Tags</b> at the top of the <a href="#ControlScreen">Control Screen</a>, or choose <b>Tags &gt; Edit Tags…</b> from the Mac's menu bar. The <b>Edit Image Tags</b> view opens on the Control Screen. It is a flat, mouse-and-keyboard view rather than a stereo one, so it stays off the stereo display, which keeps showing the picture.</p>
+    <img src="EditImageTagsView.jpg"/>
+    <ul>
+      <li>To add a tag, click <b>Add</b>, then enter the tag name and click <b>Add Tag</b>.
+
+      <li>To edit an existing tag, select it in the list on the left, make your changes to the <b>Tag Name</b> field on the right, and then click <b>Save Tag Name Changes</b>.</li>
+      <li>To delete a tag, select it in the list on the left and then click <b>Delete</b>. The tag will be removed from all records that use it, and will no longer display in the image tag list. If the tag has children, they are not deleted; they move up one level, to the deleted tag's parent (or to the top level).</li>
+      <li>To move a tag in the <a href="#TagHierarchy">tag hierarchy</a>, select it in the list on the left and click <b>Set Parent…</b>. In the list that appears, select the new parent tag, or <b>None (Top Level)</b> to make it a top-level tag, and then click <b>Set Parent</b>. The tag's own children move with it. A tag cannot be put under itself or under one of its own children.</li>
+      <li>To replace all occurrences of a tag with a different tag, select the tag you want to replace in the list on the left, then click <b>Replace</b> to display a list where you can select the replacement tag. Select the replacement tag and then click <b>Replace</b>. The tag will be replaced in all records that use it.</li>
+    </ul>
+    <p>The list on the left shows the hierarchy, with child tags indented beneath their parents.</p>
+    <p>When you are done making changes, click <b>Exit</b>.
+
+    <h3 id="BrowsingByImageTag">Browsing by Image Tag</h3>
+    <p>Once you have tagged a number of images, you can go back and view only images that have particular tags applied to them. To use this feature, navigate to <b>Menu &gt; Browse By... </b> to display the <b>Browse By</b> submenu.</p>
+    <ol>
+      <li><b>Browse File System</b>: Lets you view files by navigating through the file system with the <a href="#FileBrowserView">File Browser View</a>.</li>
+      <li><b>Browse by Tags AND</b>: Lets you select one or more tags, and then displays all images that have <b>ALL</b> of those tags applied to them.</li>
+      <li><b>Browse by Tags OR</b>: Lets you select one or more tags, and then displays all images that have <b>ANY</b> of those tags applied to them.</li>
+      <li><b>Never Viewed in This Folder</b>: Displays all images and videos in the current folder and its subfolders that you have never viewed.</li>
+      <li><b>Untagged in This Folder</b>: Displays all images and videos in the current folder and its subfolders that have no tags.</li>
+    </ol>
+    <p>In browse-by-tag mode, you can navigate through the list of matching images with the <a href="#FileBrowserView">File Browser View</a>. You can also navigate through the matching images with the Left Shoulder button (keyboard O) and Right Shoulder button (keyboard P).</p>
+    <p>To exit browse-by-tag mode, navigate to <b>Menu &gt; Browse By... Browse File System</b>.
+
+    <h3 id="MostFrequentlyUsedTags">Most Frequently Used Tags</h3>
+    <p>If the Frequently Used Tags feature is on, up to 20 of your most-used tags display near the top of the tagging menu, in a section titled <b>FREQUENTLY USED TAGS</b> with a dark blue background, ordered top-to-bottom from most-used to least-used. The full list of tags displays below this section.</p>
+    <p>To turn this feature on or off, navigate to <b>Menu &gt; Preferences &gt; Advanced &gt; Show Frequently Used Tags</b>.</p>
+
+    <h3 id="SessionTags">Session Tags</h3>
+    <p>If the Session Tags feature is on, tags that you have applied during this session display at the very top of the tagging menu, in a section titled <b>SESSION TAGS</b> with a dark green background, ordered top-to-bottom from least-used to most-used in this session. This can speed up tagging if you have a large set of related images. Session tags are cleared when you quit the app.</p>
+    <p><b>NOTE:</b> If the list of Session Tags gets too long, you can choose <b>Menu &gt; Clear Session Tags</b>.</p>
+    <p>To turn this feature on or off, navigate to <b>Menu &gt; Preferences &gt; Advanced &gt; Show Session Tags</b>.</p>
+
+    <h2 id="ImageFilters">Image Filters</h2>
+    <p>If you navigate to <b>Menu &gt; Image Operations &gt; Image Filter...</b>, the app displays a list of Image Filters that you can apply to the active image.</p>
+    <p><b>NOTE:</b> Image Filters and HSB adjustments do not alter the original image. Instead, they are saved in the database and applied to the image again the next time you display it. If you want to bake in Image Filters and HSB Adjustments, choose <b>Menu > Image Operations > Bake In Adjustments</b>.</p>
+
+    <h2 id="HSBAdjustmentMode">HSB Adjustment Mode</h2>
+    <p>If you navigate to <b>Menu &gt; Image Operations &gt; Adjust HSB</b>, controls display at the top of the screen that allow you to adjust the image's hue, saturation, brightness, and gamma.</p>
+    <img src="HSBAdjustmentMode.jpg"/>
+    <p>Use the DPad Up and Down buttons (keyboard up and down arrow) to navigate between the options:</p>
+    <ul>
+      <li><b>Hue</b>: Use the right thumbstick's horizontal axis (or the right and left arrow keys) to change the value. 0.5 is normal hue.</li>
+      <li><b>Saturation</b>: Use the right thumbstick's horizontal axis (or the right and left arrow keys) to change the value. 0.5 is normal saturation.</li>
+      <li><b>Brightness</b>: Use the right thumbstick's horizontal axis  (or the right and left arrow keys) to change the value. 0.5 is normal brightness.</li>
+      <li><b>Gamma</b>: Use the right thumbstick's horizontal axis  (or the right and left arrow keys) to change the value. 0.5 is normal gamma.</li>
+      <li><b>Inverted</b>: When this is selected, you can press A (keyboard X) to invert or uninvert the image.</li>
+      <li><b>Reset All</b>: When this is selected, you can press A (keyboard X) to reset all adjustments to their defaults.</li>
+    </ul>
+    <p>When you're happy with the way the image looks, press B (keyboard Enter).</p>
+    <p><b>NOTE:</b> Image Filters and HSB adjustments do not alter the original image. Instead, they are saved in the database and applied to the image again the next time you display it. If you want to bake in Image Filters and HSB Adjustments, choose <b>Menu > Image Operations > Bake In Adjustments</b>.</p>
+    <h3 id="HSBAdjustmentModeControlReference">HSB Adjustment Mode Control Reference</h3>
+    <table>
+      <tr>
+        <th>Game Controller</th>
+        <th>Keyboard</th>
+        <th>Description</th>
+      </tr>
+      <tr><td>DPad Up button</td><td>Up Arrow</td><td>Moves the selection up.</td></tr>
+      <tr><td>DPad Down button</td><td>Down Arrow</td><td>Moves the selection down.</td></tr>
+      <tr><td>Right Thumbstick to left</td><td>Left Arrow (for fields other than Inverted)</td><td>Reduces the value (for fields other than Inverted).</td></tr>
+      <tr><td>Right Thumbstick to right</td><td>Right Arrow</td><td>Increases the value (for fields other than Inverted).</td></tr>
+      <tr><td>A button</td><td>Left or Right Arrow or X key</td><td>Toggles Inverted field value when that field is selected, or resets all adjustments if the Reset All field is selected.</td></tr>
+      <tr><td>B button</td><td>Return</td><td>Saves all values and exits HSB Adjustment Mode.</td></tr>
+      <tr><td>X button</td><td>R</td><td>Resets the selected option's value to default.</td></tr>
+      <tr><td>Y button</td><td>I</td><td>Shows or hides the Info View.</td></tr>
+      <tr><td>Options or Menu button</td><td>&mdash;</td><td>Shows a <a href="#UsingAGameController">labeled drawing</a> of the controller saying what each control does in the current context. While this diagram displays all other controls are blocked; you can press buttons on the game controller and see them highlight in the diagram without actually executing any commands. To close this view, press the Options or Menu button again.</td></tr>
+    </table>
+
+    <h2 id="Cropping">Cropping</h2>
+    <p>Stereozoom lets you crop images to the following aspect ratios:</p>
+    <ul>
+      <li>Normal (entire screen)</li>
+      <li>Square (1:1)</li>
+      <li>Realist (1:1.05)</li>
+      <li>4:3</li>
+      <li>3:2</li>
+    </ul>
+
+    <p>If you want to select an aspect ratio before cropping, navigate to <b>Menu &gt; Aspect Ratio...</b> and choose the desired option. Then, zoom and pan the view until it shows what you want the cropped image to look like. Next, choose <b>Menu &gt; Image Operations &gt; Crop and Save as New File</b> or <b>Menu &gt; Image Operations &gt; Crop and Save Over Original</b>.</p>
+    <p><b>NOTE:</b> Any applied alignment adjustments are baked into an image file when you crop it.</p>
+    <p><b>IMPORTANT</b>: Any applied Image Filters and HSB adjustments are NOT baked into to the cropped file. If you want to bake them into the cropped file, select it after the crop and choose <b>Menu > Image Operations > Bake In Adjustments</b>.</p>
+
+    <h2 id="SessionCommands">Session Commands</h2>
+    <p>If the Session Commands feature is on, menu commands that you have recently chosen in certain menus display at the very top of their menus with a dark green background. This can speed things up if you are using a given command repeatedly. Session commands are cleared when you quit the app.</p>
+    <p>To turn this feature on or off, navigate to <b>Menu &gt; Preferences &gt; Advanced &gt; Show Session Commands</b>.
+
+    <h2 id="AuxiliaryImages">Auxiliary Images</h2>
+    <p>I originally built this app to view scans of cardboard-mounted stereoscopic slides from the 1950s. Sometimes these slides have writing on them, so I scan the slide mount as well as the image. This feature lets you view such a mount scan in the app.</p>
+    <p>To use this feature:</p>
+    <ol>
+      <li>Make sure each mount scan (or whatever auxiliary image you want) has the same name as its corresponding stereo image file.</li>
+      <li>Create a folder named "!AuxiliaryImages" in the folder containing the image scans.</li>
+      <li>Put the auxiliary images into the "!AuxiliaryImages" folder.</li>
+      <li>While viewing an image, press the Left Trigger button on the game controller or press keyboard A. The view updates to show the auxiliary image. In this mode, you can pan and zoom in for a closer look,</li>
+      <li>To return to the main image, press the Left Trigger button or keyboard A.</li>
+    </ol>
+    <p> Note that if you have multiple folders with auxiliary images, you will need an "!AuxiliaryImages" folder in each of them.</p>
+
+    <h2 id="StereoVideoPlaybackMode">Stereo Video Playback Mode</h2>
+    <p>Stereo Video Playback Mode lets you view side-by-side half-width stereo video in 3D. You can pause, fast-forward, reverse, move forward or backward in slow motion, zoom, pan, and make stereo pairs from the current view.</p>
+    <p>To enter Stereo Video Playback Mode, navigate to a video file in the File Browser view and press the A button (keyboard Enter) to display the video file. Then open the Main Menu (X button or keyboard M) and choose <b>Enter Stereo Video Playback Mode</b>. The video begins playing immediately.</p>
+    <p>Spatial video in .mov format is supported.</p>
+    <p><b>Picking up where you left off</b>: The app remembers where you stopped watching each video and resumes from that point the next time you play it. If you watch a video all the way to the end (or stop within the first few seconds), the saved position is cleared and the video starts from the beginning next time.</p>
+    <p><b>Progress bar</b>: A thin bar along the bottom of each view shows your current position in the video.</p>
+
+    <h3 id="Scanning">Scanning</h3>
+    <p>The fast-forward and fast-reverse options go up to 120x, which is fast enough to move through an hour-long video in about half a minute. Not every Mac can decode and draw video that quickly, so above a certain speed (depending on your Mac and on the video file), Stereozoom stops trying to draw frames at all and <i>scans</i> instead.</p>
+    <p>While the video is scanning, the last drawable frame stays on the screen, but the progress bar along the bottom keeps updating. A message at upper right says "Scanning [speed]".</p>
+    <p>To exit scanning, press the A button or the spacebar.</p>
+    <p><b>NOTE:</b> Stereozoom works out which speeds your Mac can draw by measuring them the first time it tries to play a video. To clear this setting, navigate to <b>Menu &#9656; Utilities &#9656; Reset Video Speed Limit</b>; the app discards the current value and measures again the next time you play a video.</p>
+    <h3 id="StereoVideoPlaybackModeControlReference">Stereo Video Playback Mode Control Reference</h3>
+    <table>
+      <tr>
+        <th>Game Controller</th>
+        <th>Keyboard</th>
+        <th>Description</th>
+      </tr>
+      <tr><td>A button</td><td>Spacebar</td><td>Pause or play video. Pressing this while the video is scanning (see below) stops it there and shows you the frame it landed on.</td></tr>
+      <tr><td>Right Trigger button when video is playing or scanning</td><td>L</td><td>Fast-forwards the video. Press once for 2x, again for 6x, then 20x, 30x, 120x, and once more to return to normal play. All six speeds are available on every Mac, but not every Mac can show the video at all speeds &mdash; see <a href="#Scanning">Scanning</a> below.</td></tr>
+      <tr><td>Right Trigger button when video is paused</td><td>L</td><td>Plays the video in slow motion. Press once for 2fps, again for 6fps, again for half of the default frame rate, and again to return to paused.</td></tr>
+      <tr><td>Left Trigger button when video is playing or scanning</td><td>K</td><td>Fast-reverses the video, through the same ladder of speeds: 2x, 6x, 20x, 30x, 120x, then normal-speed reverse. Not every video format can be played backwards with a picture; the ones that cannot are scanned instead, so reverse always works.</td></tr>
+      <tr><td>Left Trigger button when video is paused</td><td>K</td><td>Plays the video in reverse in slow motion. Press once for 2fps, again for 6fps, again for half of the default frame rate, and again to return to paused.</td></tr>
+      <tr><td>Right Shoulder button</td><td>J</td><td>If the video is paused or scanning, advances the video by one frame. Does nothing while the video is playing.</td></tr>
+      <tr><td>Left Shoulder button</td><td>H</td><td>If the video is paused or scanning, moves the video backward by one frame. Does nothing while the video is playing.</td></tr>
+      <tr><td>DPad Up button</td><td>R</td><td>Resets the zoom and pan.</td></tr>
+      <tr><td>DPad Left button</td><td>\</td><td>Saves the current view of the current frame as a stereo pair, in the same folder as the video file. The current crop, zoom, and alignment are baked into the saved image. This works whether the video is playing or paused.</td></tr>
+      <tr><td>Left Thumbstick</td><td>Arrow keys</td><td>Pans the video.</td></tr>
+      <tr><td>Right Thumbstick up/down</td><td>. and ,</td><td>Zooms in and out.</td></tr>
+      <tr><td>Right Thumbstick left/right</td><td>] and [</td><td>Adjusts the alignment (if Manual Alignment is on).</td></tr>
+      <tr><td>Y button</td><td>I</td><td>Shows/hides the Info View at the bottom of the screen.</td></tr>
+      <tr><td>B button</td><td>Escape</td><td>Asks whether to exit Stereo Video Playback Mode. Press the A button (keyboard A) to confirm and leave Stereo Video Playback Mode, or the B button (keyboard B) to keep watching.</td></tr>
+      <tr><td>Options or Menu button</td><td>&mdash;</td><td>Shows a <a href="#UsingAGameController">labeled drawing</a> of the controller saying what each control does in the current context. While this diagram displays all other controls are blocked; you can press buttons on the game controller and see them highlight in the diagram without actually executing any commands. To close this view, press the Options or Menu button again.</td></tr>
+    </table>
+
+    <h2 id="ZoomSequences">Zoom Sequences</h2>
+    <p>A Zoom Sequence is a saved sequence of framings (zoom, pan offset, and horizontal alignment) for one or more stereo images. When you play a Zoom Sequence back, the app smoothly animates from one framing to the next. You can play a Zoom Sequence in the app, and you can render a Zoom Sequence as side-by-side or spatial (MV-HEVC) stereo video. After you create a Zoom Sequence, you can edit the timing of each step, and even combine several Sequences into one.</p>
+    <p>Zoom Sequences are saved as JSON files in a folder named "Zoom Sequences" at the root of your <a href="#Root3DFolder">Root 3D Folder</a>. Each Zoom Sequence file appears in the <a href="#FileBrowserView">File Browser View</a> alongside your other files.</p>
+    <p><b>NOTE:</b> Any Image Filter or HSB adjustment saved for an image is applied during playback and rendering of a Zoom Sequence.</p>
+
+    <h3 id="CreatingAZoomSequence">Creating a Zoom Sequence</h3>
+    <p>To create a Zoom Sequence:</p>
+    <ol>
+      <li>Display a stereo image.</li>
+      <li>Navigate to <b>Menu &gt; Zoom Sequences... &gt; Create Zoom Sequence</b>. (This command is available only when an image is displayed.)</li>
+      <li>Pan, zoom, and align the image to the first framing you want, then navigate to <b>Menu &gt; Zoom Sequences... &gt; Save Step</b> (keyboard S) to capture it as a step. A message confirms the number of steps you have captured.</li>
+      <li>Move to the next framing and capture another step. If you make a mistake, navigate to <b>Menu &gt; Zoom Sequences... &gt; Undo Last Step</b> (keyboard U) to remove the most recently captured step.</li>
+      <li>Once you have captured at least two steps, navigate to <b>Menu &gt; Zoom Sequences... &gt; Save Zoom Sequence</b> (keyboard F). The Zoom Sequence is saved into the "Zoom Sequences" folder, named after the image. If a Zoom Sequence with that name already exists, you are asked to confirm overwriting it.</li>
+    </ol>
+    <p>To abandon a capture in progress, navigate to <b>Menu &gt; Zoom Sequences... &gt; Cancel Zoom Sequence</b> and confirm.</p>
+    <p><b>NOTE:</b> While you are capturing a Zoom Sequence, <b>do not go to a different image file,</b> because the Zoom Sequence's steps belong to the image you started with. Pan, zoom, alignment, the Info View (Y) and the Left Thumbstick button (Automatic Horizontal Alignment on/off) work as usual during capture, but several controls change:</p>
+    <ul>
+      <li>X (keyboard M) opens the <b>Zoom Sequences</b> menu directly instead of the top level of the menu, so the items below are one press away (B closes the menu).</li>
+      <li>B (keyboard B) does nothing rather than opening the File Browser View, and A (keyboard T or Enter) does nothing rather than opening the tagging menu.</li>
+      <li>The Left and Right Shoulder buttons (keyboard O and P) do nothing, so you cannot move to another image by accident.</li>
+      <li>The Left Trigger (keyboard A) does nothing rather than showing the <a href="#AuxiliaryImages">Auxiliary Image</a>, and the Right Thumbstick button (keyboard L) does nothing rather than showing one side only.</li>
+    </ul>
+    <table>
+      <tr>
+        <th>Menu Item</th>
+        <th>Keyboard</th>
+        <th>Description</th>
+      </tr>
+      <tr><td>Menu &gt; Zoom Sequences... &gt; Save Step</td><td>S</td><td>Saves the current zoom / offset / alignment as a step in the active Zoom Sequence.</td></tr>
+      <tr><td>Menu &gt; Zoom Sequences... &gt; Undo Last Step</td><td>U</td><td>Undoes the last step you captured.</td></tr>
+      <tr><td>Menu &gt; Zoom Sequences... &gt; Save Zoom Sequence</td><td>F</td><td>Finishes the Zoom Sequence and saves it to the "Zoom Sequences" folder.</td></tr>
+      <tr><td>X button (opens the Zoom Sequences menu)</td><td>M</td><td>While capturing, opens the Zoom Sequences menu directly instead of the top level of the menu.</td></tr>
+      <tr><td>B button</td><td>B</td><td>Does nothing while capturing, other than cancelling a dialog. It does not open the File Browser View.</td></tr>
+    </table>
+
+    <h3 id="PlayingAndRenderingAZoomSequence">Playing and Rendering a Zoom Sequence</h3>
+    <p>When you display a saved Zoom Sequence file from the <a href="#FileBrowserView">File Browser View</a>, press the A button (keyboard T or Enter) to play it back immediately, or navigate to one of these commands:</p>
+    <ul>
+      <li><b>Play Zoom Sequence</b>: Plays the Sequence back on screen (same as pressing the A button/T/Enter directly). The app navigates to each image in turn and animates through its steps. Automatic Horizontal Alignment is turned off for the duration so the Sequence's captured alignment values play back exactly as saved.</li>
+      <li><b>Render Zoom Sequence to Video</b>: Renders the entire Sequence to video, saved next to the Sequence file. <b>Menu &gt; Preferences &gt; Advanced &gt; Zoom Sequence Video Format</b> chooses what is written: <b>Side by Side</b> (the default) writes two side-by-side stereo .movs, a full-width and a half-width one; <b>Spatial (MV-HEVC)</b> writes a single spatial .mov that Photos, QuickTime Player, Apple Vision Pro and iPhone 15 Pro and later show in 3D; <b>Both</b> writes all three. The animation is displayed on screen while the video renders. Note that spatial encoding requires hardware support.</li>
+      <li><b>Edit Zoom Sequence</b>: Enters <a href="#EditingZoomSequenceTiming">Zoom Sequence Editing Mode</a>.</li>
+    </ul>
+    <p>While a Zoom Sequence renders, a progress bar displays along the bottom. A loading indicator displays if a new image needs to load, and while the video file is being finalized at the end.</p>
+    <p>During playback or rendering, all input is suspended except the B button (keyboard Escape), which cancels and returns the image to its normal view. A cancelled render discards its partial video files.</p>
+
+    <h3 id="EditingZoomSequenceTiming">Editing Zoom Sequence Timing</h3>
+    <p>Each step in a Zoom Sequence has three timing values, in seconds:</p>
+    <ul>
+      <li><b>Delay Before</b>: How long to hold the previous framing before the transition into this step begins.</li>
+      <li><b>Duration</b>: How long the eased transition into this step's framing takes.</li>
+      <li><b>Delay After</b>: How long to hold this step's framing after the transition completes.</li>
+    </ul>
+    <p><b>NOTE:</b> On the first step of a Zoom Sequence, only the Delay Before value applies.</p>
+    <p>To edit these values, display a saved Zoom Sequence, then navigate to <b>Menu &gt; Zoom Sequences... &gt; Edit Zoom Sequence</b>. A stereoscopic editor overlays the Sequence, previewing the current step's framing on the image. Use DPad Left and DPad Right (left and right arrow keys) to move between the timing fields, and DPad Up and DPad Down (up and down arrow keys) to change the selected value by one second at a time. Delay Before and Delay After can go as low as zero seconds; Duration cannot go below one second.</p>
+    <p>To preview your changes without leaving the editor:</p>
+    <ul>
+      <li>Press the Left Shoulder button (keyboard G) to play the step before, the current step, and the step after, then return to editing. Press again during the preview to stop it early.</li>
+      <li>Press the Left Trigger button (keyboard P) to play the entire Zoom Sequence in place, then return to editing. Press it again during the preview to stop it.</li>
+    </ul>
+    <p>When you are done, press the B button (keyboard Escape). You are asked whether to save your changes: press A to save, or B to discard them. Either way, you return to normal viewing.</p>
+    <table>
+      <tr>
+        <th>Game Controller</th>
+        <th>Keyboard</th>
+        <th>Description</th>
+      </tr>
+      <tr><td>DPad Left button</td><td>Left Arrow</td><td>Moves to the previous timing field.</td></tr>
+      <tr><td>DPad Right button</td><td>Right Arrow</td><td>Moves to the next timing field.</td></tr>
+      <tr><td>DPad Up button</td><td>Up Arrow</td><td>Increases the selected value by one second.</td></tr>
+      <tr><td>DPad Down button</td><td>Down Arrow</td><td>Decreases the selected value by one second.</td></tr>
+      <tr><td>Left Shoulder button</td><td>G</td><td>Previews the previous / current / next step in place, then returns to editing. Press again during the preview to stop it early.</td></tr>
+      <tr><td>Left Trigger button</td><td>P</td><td>Previews the entire Sequence in place, then returns to editing. Press again during the preview to stop it early.</td></tr>
+      <tr><td>B button</td><td>Escape</td><td>Shows the "Save changes?" confirmation (A saves, B discards), then returns to normal viewing.</td></tr>
+      <tr><td>Options or Menu button</td><td>&mdash;</td><td>Shows a <a href="#UsingAGameController">labeled drawing</a> of the controller saying what each control does in the current context. While this diagram displays all other controls are blocked; you can press buttons on the game controller and see them highlight in the diagram without actually executing any commands. To close this view, press the Options or Menu button again.</td></tr>
+    </table>
+
+    <h3 id="CombiningZoomSequences">Combining Zoom Sequences</h3>
+    <p>You can join several existing Zoom Sequences into a single, longer Zoom Sequence that plays through all of their images in order. To do this, navigate to <b>Menu &gt; Zoom Sequences... &gt; Combine Zoom Sequences...</b> (available when at least two Zoom Sequence files are present). A list of all your saved Zoom Sequences displays.</p>
+    <p>Select two or more Zoom Sequences in the order you want them to play; each one you select is highlighted. Then select <b>Save Combined Zoom Sequence</b> at the bottom of the same list (it shows how many Sequences you have selected). The combined Zoom Sequence is saved in the "Zoom Sequences" folder, named after the first image, plus a count of the additional images (for example, "Beach + 2 more").</p>
+
+    <h2 id="TravelingStereoMode">Traveling Stereo Mode</h2>
+    <p>Traveling Stereo Mode lets you create side-by-side full-width stereo pairs from video files where the camera is traveling sideways. This is useful, for example, if you have drone video that is traveling horizontally.</p>
+    <p>The controls are similar to those for <a href="#BracketedDepthMode">Bracketed Depth Mode</a>. There are three important ideas to understand:</p>
+    <ul>
+      <li><b>Starting Location:</b> The location of the first frame in the pair. By varying the starting location, you can play with different framings.</li>
+      <li><b>Range:</b> The set of frames being displayed. For example, the range may be from frame 3 to frame 7, meaning that frame 3 is on the left and frame 7 is on the right.</li>
+      <li><b>Gap:</b> The distance between the two frames. For example, if you're combining frame 3 and 5, the gap between them is 2. The larger the gap, the more depth the pair has.</li>
+    </ul>
+    <p><img src="TravelingStereoRangeAndGap.svg" style="max-width: 100%;"/></p>
+    <p>You can see both the numbers of the first and last frames in the range and the gap between them at the top of the screen:</p>
+    <p><img src="FrameRange.jpg"/></p>
+    <p>To enter Traveling Stereo Mode, navigate to the video file in the File Browser View and press the A button (keyboard Enter) to display it. Then navigate to <b>Menu &gt; Enter Traveling Stereo Mode</b>.</p>
+    <p><b>NOTE:</b> Spatial (MV-HEVC) video cannot be reencoded; the app says so and enters the mode on the original.</p>
+    <p>Once you are in Traveling Stereo Mode:</p>
+    <ul>
+      <li>Use the right trigger button (keyboard R) to skip ahead 30 frames at a time until you find a section where the image appears to have depth. You can skip backward by 30 frames with the left trigger button (keyboard Q).</li>
+      <li>To zero in on the frame range you want, use the right shoulder button (keyboard E) to skip ahead by one frame, or the left shoulder button (keyboard W) to skip back by one frame.
+      <li>To increase the depth of the image, increase the size of the frame range by pressing DPad Right (keyboard F).</li>
+      <li>To decrease the depth of the image, decrease the size of the frame range by pressing DPad Left (keyboard D).</li>
+      <li>Depending on the direction of travel, the depth may appear inverted. To fix this, press the Right Thumbstick button (keyboard X).</li>
+      <li>When the pair looks right, press the A button (keyboard Return) and confirm to save it as a full-width stereo pair next to the video file.</li>
+    </ul>
+    <p>The frame-stepping buttons repeat if you hold them down, so you can travel through a long video quickly. A thin progress bar along the bottom shows where you are in the video.</p>
+    <p>If <a href="#HorizontalAlignment">Automatic Horizontal Alignment</a> is on, the app re-aligns the pair as you change frames, and again as you pan and zoom. If you hold down a button to make it fast-repeat, Automatic Horizontal Alignment is suspended until you release it.</p>
+    <p><b>NOTE</b>: Panning and zooming affect only what you see on screen; a saved stereo pair is always the full, uncropped frame at full resolution.</p>
+    <h3 id="ReencodingVideo">Reencoding Video</h3>
+    <p>When you enter Traveling Stereo Mode, you have the option of reencoding the video first. Reencoding the video makes it faster to access specific frames and can speed things up if you are using a large gap. However, it can take a long time, and it should usually be unnecessary. If you want to reencode the video before you enter the mode, press X (keyboard X) when the confirmation dialog displays. The reencoded video is automatically deleted when you exit Traveling Stereo Mode.</p>
+    <h3 id="TravelingStereoModeControlReference">Traveling Stereo Mode Control Reference</h3>
+    <table>
+      <tr>
+        <th>Game Controller</th>
+        <th>Keyboard</th>
+        <th>Description</th>
+      </tr>
+      <tr><td>Right Trigger button</td><td>R</td><td>Moves the frame range ahead 30 frames, or to the end of the clip if fewer than 30 frames remain.</td></tr>
+      <tr><td>Right Shoulder button</td><td>E</td><td>Moves the frame range ahead 1 frame.</td></tr>
+      <tr><td>Left Trigger button</td><td>Q</td><td>Moves the frame range back 30 frames, or to the start of the clip if fewer than 30 frames remain.</td></tr>
+      <tr><td>Left Shoulder button</td><td>W</td><td>Moves the frame range back 1 frame.</td></tr>
+      <tr><td>DPad Right button</td><td>F</td><td>Increments the highest-numbered frame (increases depth).</td></tr>
+      <tr><td>DPad Left button</td><td>D</td><td>Decrements the highest-numbered frame (reduces depth).</td></tr>
+      <tr><td>DPad Up button</td><td>C</td><td>Resets the view to 100%.</td></tr>
+      <tr><td>DPad Down button</td><td>Z</td><td>Resets the horizontal alignment to zero, then, if Automatic Horizontal Alignment is on, re-aligns the pair from there. Hold the button down to open <b>Menu &gt; Preferences &gt; Alignment</b>.</td></tr>
+      <tr><td>Left Thumbstick</td><td>Arrow keys</td><td>Pans the view.</td></tr>
+      <tr><td>Right Thumbstick up/down</td><td>. and ,</td><td>Zooms in and out.</td></tr>
+      <tr><td>Right Thumbstick to left</td><td>[</td><td>Adjusts horizontal alignment to the left.</td></tr>
+      <tr><td>Right Thumbstick to right</td><td>]</td><td>Adjusts horizontal alignment to the right.</td></tr>
+      <tr><td>Right Thumbstick button</td><td>X</td><td>Cycles through four steps. Press once to swap the left/right views (this may be necessary depending on the direction of camera travel). Press twice to view the left side only. Press three times to view the right side only. The fourth press returns to normal stereo. The status line shows <b>SWAPPED</b>, <b>LEFT ONLY</b> or <b>RIGHT ONLY</b>, as appropriate.</td></tr>
+      <tr><td>Left Thumbstick button</td><td>A</td><td>Turns <a href="#HorizontalAlignment">Automatic Horizontal Alignment</a> on and off.</td></tr>
+      <tr><td>X button</td><td>M</td><td>Displays the <a href="#MenuReference">Main Menu</a>, which offers <b>Exit Traveling Stereo Mode</b> and <b>Exit and Delete This Video</b> in place of the ordinary file-type items.</td></tr>
+      <tr><td>Y button</td><td>I</td><td>Shows/hides the Info View.</td></tr>
+      <tr><td>A button</td><td>Return</td><td>Saves a stereo pair from selected frames. The stereo pair is not cropped, even if you are zoomed in.</td></tr>
+      <tr><td>B button</td><td>Escape</td><td>Exit Traveling Stereo Mode. In the confirmation dialog box that displays, press A to return to the video, X to move the video file to the "!StereozoomTrash" folder, or B to cancel.</td></tr>
+      <tr><td>Options or Menu button</td><td>&mdash;</td><td>Shows a <a href="#UsingAGameController">labeled drawing</a> of the controller saying what each control does in the current context. While this diagram displays all other controls are blocked; you can press buttons on the game controller and see them highlight in the diagram without actually executing any commands. To close this view, press the Options or Menu button again.</td></tr>
+    </table>
+
+    <h2 id="BracketedDepthMode">Bracketed Depth Mode</h2>
+    <p>Bracketed Depth Mode lets you build stereo pairs from a set of monoscopic photos of a single subject shot with something like a macro rail. In this mode, you can pair such images interactively in stereo, and adjust the depth of the scene on the fly.</p>
+    <p>The controls are similar to those for <a href="#TravelingStereoMode">Traveling Stereo Mode</a>. There are three important ideas to understand:</p>
+    <ul>
+      <li><b>Starting Location:</b> The location of the first image in the pair. By varying the starting location, you can play with different framings.</li>
+      <li><b>Range:</b> The set of images that includes the first and last image. For example, the range may be from image 3 to image 7, meaning that image 3 is on the left and image 7 is on the right.</li>
+      <li><b>Gap:</b> The distance between the two images. For example, if you're combining images 3 and 5 in a folder, the gap is 2. The larger the gap, the more depth the pair has.</li>
+    </ul>
+    <p><img src="BracketedDepthRangeAndGap.svg" style="max-width: 100%;"/></p>
+    <p>The Left and Right Shoulder buttons adjust the starting location of the displayed pair. The DPad Left and DPad Right buttons decrease and increase the range (and therefore, the depth). The status line at the top of the screen shows the current range and identifies the currently displayed files.</p>
+    <p>If the camera was traveling left to right, the depth should look correct by default. If the camera was traveling right to left, press the Right Thumbstick button (keyboard X) to swap the views and correct the depth. The status line shows <b>SWAPPED</b> while the views are exchanged. The app remembers whether a folder's views were swapped, and the next time you enter Bracketed Depth Mode in that folder, the views start out swapped again.</p>
+    <p>The Right Thumbstick button (keyboard X) works the same way it does in <a href="#TravelingStereoMode">Traveling Stereo Mode</a>: it cycles through four steps. Press once to swap the views. Press again to see the left side only, and a third time to see the right side only, so you can compare the two images without removing your 3D glasses. The fourth press returns to normal (unswapped) stereo. The status line shows <b>SWAPPED</b>, <b>LEFT ONLY</b> or <b>RIGHT ONLY</b>, as appropriate. If the folder was swapped when you last left it, the mode opens swapped, and the next press goes straight to left only.</p>
+    <p>To enter Bracketed Depth Mode, display the image you want the first pair to start from (usually the first image in the folder), then navigate to <b>Menu &gt; Enter Bracketed Depth Mode</b> and confirm. The selected image is shown on the left, and the next image on the right. (If you select the last image in the folder, it is shown on the right and the image before it on the left. If the folder's views start out swapped, as described above, left and right are exchanged.) The menu item is available only if the folder contains at least two images, and it is hidden in a folder whose <a href="#MonoscopicVsStereoscopicFlags">mono/stereo flag</a> is stereoscopic.</p>
+    <p>Automatic Horizontal Alignment may fail if the range you are using is too large (in other words, if not enough of the two images overlaps), or if there are vertical alignment issues. In such situations, Automatic Horizontal Alignment is suspended. You can try pressing DPad Down to see if the image can be aligned (see <a href="#StuckHorizontalAlignment"> "Stuck" Horizontal Alignment</a>).</p>
+
+    <h3 id="SavingBracketedStereoPairs">Saving Bracketed Stereo Pairs</h3>
+    <p>To save the currently displayed pair, press the A button (keyboard Return). Saved pairs are put into a subfolder named "!SBS" in the folder you are working in.</p>
+    <p><b>NOTE:</b> If you save as a <b>Spatial Photo</b>, the app writes real camera data into the file rather than generic defaults: the lens focal length comes from the source photo&rsquo;s EXIF, and the stereo baseline is worked out from <b>Preferences &gt; Bracketed Depth Rail Step</b> multiplied by the number of frames between the two views. Set the rail step to the distance you actually moved the camera between shots, or the depth in the resulting spatial photo will be wrong. This setting has no effect on JPEG or PNG output.</p>
+    <p><b>NOTE</b>: Panning and zooming affect only what you see on screen. A saved pair is always the full frame at full resolution.</p>
+
+    <h3 id="FinishingWithAFolder">Finishing With a Folder</h3>
+    <p>When you have saved every pair you want from a folder of monoscopic files, press the B button (Escape key) to exit Bracketed Depth Mode. At this point you have two choices: simply leave the mode and return to normal image viewing (A button / key), or leave the mode and clean up the folder (X button / key). Either way, you are returned to the image view (or to the File Browser View, if no image is left to display). If you press X (<b>Exit and Move Mono Files to !StereozoomTrash</b>), the app does the following:</p>
+    <ol>
+      <li>It moves the monoscopic images into a folder of the same name inside the "!StereozoomTrash" folder.</li>
+      <li>It moves the final pairs from the "!SBS" folder to the folder that contained the monoscopic files.</li>
+      <li>It puts the empty "!SBS" folder into your Mac's Trash</li>
+    </ol> 
+    <p>This leaves you with a folder of stereo pairs.</p>
+    <h3 id="BracketedDepthModeControlReference">Bracketed Depth Mode Control Reference</h3>
+    <table>
+      <tr>
+        <th>Game Controller</th>
+        <th>Keyboard</th>
+        <th>Description</th>
+      </tr>
+      <tr><td>Right Shoulder button</td><td>E</td><td>Moves the first image forward one file, keeping the range the same.</td></tr>
+      <tr><td>Left Shoulder button</td><td>W</td><td>Moves the first image back one file, keeping the range the same.</td></tr>
+      <tr><td>DPad Right button</td><td>F</td><td>Advances the image shown on the right, thus increasing depth.</td></tr>
+      <tr><td>DPad Left button</td><td>D</td><td>Retreats the image shown on the right, thus reducing depth.</td></tr>
+      <tr><td>DPad Up button</td><td>C</td><td>Resets the view.</td></tr>
+      <tr><td>DPad Down button</td><td>Z</td><td>Resets horizontal alignment. Hold the button down to open <b>Menu &gt; Preferences &gt; Alignment</b>.</td></tr>
+      <tr><td>Left Thumbstick</td><td>Arrow keys</td><td>Pans the view.</td></tr>
+      <tr><td>Right Thumbstick up/down</td><td>. and ,</td><td>Zooms in and out.</td></tr>
+      <tr><td>Right Thumbstick to left</td><td>[</td><td>Adjusts alignment to the left.</td></tr>
+      <tr><td>Right Thumbstick to right</td><td>]</td><td>Adjusts alignment to the right.</td></tr>
+      <tr><td>Right Thumbstick button</td><td>X</td><td>Cycles through four steps. Press once to swap the left/right views, inverting the depth (necessary if the camera was traveling right to left). Press twice to view the left side only. Press three times to view the right side only. The fourth press returns to normal stereo. The status line shows SWAPPED, LEFT ONLY or RIGHT ONLY, as appropriate.</td></tr>
+      <tr><td>Left Thumbstick button</td><td>Q</td><td>Turns <a href="#HorizontalAlignment">Automatic Horizontal Alignment</a> on and off.</td></tr>
+      <tr><td>X button</td><td>M</td><td>Displays the <a href="#MenuReference">Main Menu</a>, which includes <b>Exit Bracketed Depth Mode</b> instead of the ordinary file-type items.</td></tr>
+      <tr><td>Y button</td><td>I</td><td>Shows/hides the Info View, which lists both file names and the folder they are in.</td></tr>
+      <tr><td>A button</td><td>Return</td><td>Saves the pair on screen into the "!SBS" folder. The pair is not cropped to the view, even if you are zoomed in.</td></tr>
+      <tr><td>B button</td><td>Escape</td><td>Exits Bracketed Depth Mode, after a confirmation. On that confirmation, the X button (keyboard X) is <b>Confirm and Move Mono Files to !StereozoomTrash</b>, which exits and does the same thing as <b>Exit and Move Mono Files to !StereozoomTrash</b>. The app remembers whether the views were swapped, and starts out swapped the next time you enter Bracketed Depth Mode in this folder.</td></tr>
+      <tr><td>Options or Menu button</td><td>&mdash;</td><td>Shows a <a href="#UsingAGameController">labeled drawing</a> of the controller saying what each control does in the current context. While this diagram displays all other controls are blocked; you can press buttons on the game controller and see them highlight in the diagram without actually executing any commands. To close this view, press the Options or Menu button again.</td></tr>
+    </table>
+
+    <h2 id="ConvertToStereoMode">Convert to Stereo Mode</h2>
+    <p>Convert to Stereo Mode lets you convert a monoscopic image to a stereoscopic image. You can adjust the depth of the photo interactively before you save it.</p>
+    <p><b>IMPORTANT:</b> The quality of any stereo conversion depends on the method being used for that conversion. The method currently used by the app is OK, but don't expect professional results. If you want a high-quality stereo conversion, I suggest you look elsewhere.</p>
+    <p>To enter Convert to Stereo Mode, display the image you want to convert, navigate to <b>Menu &gt; Enter Convert to Stereo Mode</b>. The app takes a moment to analyze the image, and then the converted pair appears. The depth value displays at the top, and you can adjust it with the DPad Left (D key) and DPad Right (F key). The image updates each time you change the depth value.</p>
+    <p><b>DPad Left and Right set the Depth</b>: right for more, left for less, with the value shown at the top of the screen. Depth is the greatest distance anything in the picture moves between the two eyes, measured as a percentage of the image width, so the preview and the file you save look the same however large the original is. Zero means no depth at all &mdash; both eyes see the same flat picture, which is a useful thing to flick back to when you are judging how much is too much.</p>
+    <p>To save the image as a stereo pair, press the A button (keyboard Return). The app saves the converted pair as a full-width side-by-side file at full resolution, in the format set by <b>Preferences &gt; Save Format</b>. The image is saved in the same folder as the original, with <b>-Converted</b> added to the name. Converting the same image again adds a number rather than overwriting, so you can save stereo pairs with different depth values and compare them later.</p>
+    <p><b>NOTE</b>: If you save as a <b>Spatial Photo</b>, the file gets generic camera values rather than real ones. Unlike <a href="#BracketedDepthMode">Bracketed Depth Mode</a>, where the rail step is a real distance the camera moved, there is no actual camera separation here to record &mdash; the depth was invented from the picture.</p>
+    <p><b>NOTE</b>: Panning and zooming affect only what you see on screen. A saved conversion is always the full frame at full resolution, cropped only by the alignment you have set.</p>
+    <h3 id="ConvertToStereoModeControlReference">Convert to Stereo Mode Control Reference</h3>
+    <table>
+      <tr>
+        <th>Game Controller</th>
+        <th>Keyboard</th>
+        <th>Description</th>
+      </tr>
+      <tr><td>DPad Right button</td><td>F</td><td>Increases Depth. Hold to run it up quickly; the picture is redrawn once, when you let go.</td></tr>
+      <tr><td>DPad Left button</td><td>D</td><td>Reduces Depth, down to zero &mdash; at which point both eyes show the same flat picture.</td></tr>
+      <tr><td>DPad Up button</td><td>C</td><td>Resets the view.</td></tr>
+      <tr><td>DPad Down button</td><td>Z</td><td>Resets the alignment.</td></tr>
+      <tr><td>Left Thumbstick</td><td>Arrow keys</td><td>Pans the view.</td></tr>
+      <tr><td>Right Thumbstick up/down</td><td>. and ,</td><td>Zooms in and out.</td></tr>
+      <tr><td>Right Thumbstick to left</td><td>[</td><td>Adjusts alignment to the left.</td></tr>
+      <tr><td>Right Thumbstick to right</td><td>]</td><td>Adjusts alignment to the right.</td></tr>
+      <tr><td>Y button</td><td>I</td><td>Shows/hides the Info View.</td></tr>
+      <tr><td>A button</td><td>Return</td><td>Asks to save the converted pair, then writes it beside the original with "-Converted" added to the name.</td></tr>
+      <tr><td>B button</td><td>Escape</td><td>Exits Convert to Stereo Mode.</td></tr>
+      <tr><td>Options or Menu button</td><td>&mdash;</td><td>Shows a <a href="#UsingAGameController">labeled drawing</a> of the controller saying what each control does in the current context. While this diagram displays all other controls are blocked; you can press buttons on the game controller and see them highlight in the diagram without actually executing any commands. To close this view, press the Options or Menu button again.</td></tr>
+    </table>
+
+    <h2 id="DepthGradingMode">Depth Grading Mode</h2>
+    <p>Depth Grading Mode lets you adjust how the depth of a side-by-side stereo photograph sits relative to the screen when it is displayed.</p>
+    <p>To enter it, display the stereo image you want to grade, then navigate to <b>Menu &gt; Enter Depth Grading Mode</b>. The app measures the depth of the image and displays it in the Depth Budget panel, which shows how much depth the pair will have with the changes you have made.</p>
+    <p>There are five parameters you can adjust:</p>
+    <ul>
+      <li><b>Convergence</b> is where the <i>stereo window</i> (the plane of the screen) sits in the scene. You can adjust this with the Right Thumbstick's X axis (keyboard [ and ]). Moving it one way brings the whole scene toward you; moving it the other way sends the scene back behind the screen. This does not change how much depth the pair has; only where that depth sits.</li>
+      <li><b>Floating windows</b> are thin black strips down the left edge of the left eye and the right edge of the right eye. Something that is in front of the screen but cut off by the edge of the frame looks wrong, because the frame edge appears to be behind it. The strips bring the edge of the frame forward so it is in front of that object again. You can widen or narrow them with the Right and Left Shoulder buttons (keyboard R and E).</li>
+      <li><b>Depth Amount</b> is how much depth the pair has, from 0% (flat) through 100% (as photographed), up to 130%. You can change it with the DPad Left and Right buttons (keyboard - and =). The depth is squeezed toward (or stretched away from) the stereo window, so whatever is at the plane of the screen stays there while everything in front of it and behind it moves. The image for each eye is warped using a depth map that the app builds on the fly when you enter the mode, so it may take a moment for changes to apply. Note that very fine edges can show small artifacts at low amounts, and above 100% the app has to fill in slivers of background that neither camera saw.</li>
+      <li><b>Depth Curve</b> lets you change how the depth is shared out between the near and far parts of the scene, without changing the total depth. Push the Right Thumbstick up (or press the Right Trigger, keyboard W) to give the foreground more roundness at the expense of the background; pull it down (Left Trigger, keyboard Q) for the reverse. The thumbstick moves this value smoothly, and the triggers and keys move the value in steps.</li>
+      <li><b>Depth EQ</b> works like a graphic equalizer for depth. Press the Y button (keyboard H) to focus the histogram in the Depth Budget panel. There, each bar is a band of depth, nearest on the left, and the white tick over each bar is that band's depth gain. Use the DPad Left and Right buttons (left and right arrow keys) to pick a band, then use DPad Up and Down (up and down arrow keys) to give that range of depth more or less room. The total stays the same, so raising one band gives the rest slightly less. Press B or Y (Escape or H) to leave the histogram. However hard the curve and EQ are pushed, nothing can end up behind something it was in front of.</li>
+    </ul>
+    <p><b>Fit to Comfort</b> (X button, keyboard F) sets the convergence, the Depth Amount and the floating windows for you, and leaves the curve and EQ as you set them. It puts the nearest part of the scene on the screen plane, unless that would push the farthest part too far behind it; if the pair still has more depth than is comfortable, it lowers the Depth Amount until it does not; and then it sizes each floating window to cover whatever is in front of the screen at that edge.</p>
+    <p>When the adjusted depth looks right, press the A button (keyboard Return) to save an adjusted version of the image. The saved file has "-Graded" appended to its name.</p>
+    <p><b>NOTE:</b> The Right Thumbstick's up and down movement is the Depth Curve in this mode, so to zoom with the game controller, hold down the Left Thumbstick button while moving the Right Thumbstick up or down. (Sorry, I ran out of gamepad controls.) The , and . keys zoom as usual.</p>
+    <p><b>NOTE:</b> The quality of this feature is dependent on the quality of the depth map created by the app, and currently the app's depth maps are not perfect.
+    <h3 id="DepthGradingModeControlReference">Depth Grading Mode Control Reference</h3>
+    <table>
+      <tr>
+        <th>Game Controller</th>
+        <th>Keyboard</th>
+        <th>Description</th>
+      </tr>
+      <tr><td>Right Thumbstick to left / right</td><td>[ and ]</td><td>Moves the stereo window (convergence).</td></tr>
+      <tr><td>Left Shoulder button</td><td>E</td><td>Narrows the floating windows. Hold to repeat.</td></tr>
+      <tr><td>Right Shoulder button</td><td>R</td><td>Widens the floating windows. Hold to repeat.</td></tr>
+      <tr><td>DPad Left button</td><td>-</td><td>Less depth: lowers the Depth Amount, down to 0% (flat). Hold to repeat.</td></tr>
+      <tr><td>DPad Right button</td><td>=</td><td>More depth: raises the Depth Amount, up to 130%. Hold to repeat.</td></tr>
+      <tr><td>Right Thumbstick up / down</td><td>W and Q</td><td>Depth Curve: increases depth in the foreground (up, W) or in the background (down, Q). The thumbstick moves it smoothly.</td></tr>
+      <tr><td>Right / Left Trigger buttons</td><td>W and Q</td><td>Depth Curve in steps, toward the foreground (Right Trigger) or the background (Left Trigger). Hold to repeat.</td></tr>
+      <tr><td>Y button</td><td>H</td><td>Focuses the histogram for the Depth EQ, or leaves it.</td></tr>
+      <tr><td><i>In the histogram:</i> DPad Left / Right buttons</td><td>Left / Right arrow keys</td><td>Selects the previous (nearer) or next (farther) band. Hold to repeat.</td></tr>
+      <tr><td><i>In the histogram:</i> DPad Up / Down buttons</td><td>Up / Down arrow keys</td><td>Raises or lowers the selected band's depth gain. Hold to repeat.</td></tr>
+      <tr><td><i>In the histogram:</i> B or Y button</td><td>Escape or H</td><td>Leaves the histogram (not the mode).</td></tr>
+      <tr><td>X button</td><td>F</td><td>Fit to Comfort: sets the convergence, the Depth Amount and both floating windows from the measurement, keeping the curve and EQ.</td></tr>
+      <tr><td>DPad Down button</td><td>Z</td><td>Resets the grade: the convergence the image came in with, no floating windows, 100% depth, no curve and a flat EQ. (In the histogram, DPad Down lowers a band instead; use the Right Thumbstick button or Z.)</td></tr>
+      <tr><td>DPad Up button</td><td>C</td><td>Resets the view: animates the zoom and pan back to the default framing. (Not while the histogram is focused &mdash; leave it first.)</td></tr>
+      <tr><td>Left Thumbstick</td><td>Arrow keys</td><td>Pans the view.</td></tr>
+      <tr><td>Left Thumbstick button held + Right Thumbstick up/down</td><td>. and ,</td><td>Zooms in and out.</td></tr>
+      <tr><td>Right Thumbstick button</td><td>Z</td><td>Resets the grade. Works in the histogram too.</td></tr>
+      <tr><td>A button</td><td>Return</td><td>Asks to save the graded pair, then writes it beside the original with "-Graded" added to the name.</td></tr>
+      <tr><td>B button</td><td>Escape</td><td>Leaves the histogram if it is focused; otherwise asks to leave Depth Grading Mode.</td></tr>
+      <tr><td>Options or Menu button</td><td>&mdash;</td><td>Shows a <a href="#UsingAGameController">labeled drawing</a> of the controller saying what each control does in the current context. While this diagram displays all other controls are blocked; you can press buttons on the game controller and see them highlight in the diagram without actually executing any commands. To close this view, press the Options or Menu button again.</td></tr>
+    </table>
+
+    <h2 id="MenuReference">Menu Reference</h2>
+    <p>To open the Main Menu, press the X button (keyboard M). Within any menu:</p>
+    <ul>
+      <li>Use the DPad Up and DPad Down buttons (or the up and down arrow keys) to navigate up and down.</li>
+      <li>Use the A button (keyboard Enter) to select an item or enter a submenu.</li>
+      <li>If you are in a submenu, use DPad Left (left arrow key) to navigate up one level.</li>
+      <li>Press button B (keyboard Escape) to close the menu.</li>
+      <li>The commands available in the Menu vary by file type and mode.
+    </ul>
+      <p>The menu is only reachable while browsing normally, and inside <a href="#TravelingStereoMode">Traveling Stereo Mode</a> and <a href="#BracketedDepthMode">Bracketed Depth Mode</a>. It is not reachable in HSB Adjustment Mode, Auxiliary Image display, <a href="#StereoVideoPlaybackMode">Stereo Video Playback Mode</a>, <a href="#ConvertToStereoMode">Convert to Stereo Mode</a>, <a href="#DepthGradingMode">Depth Grading Mode</a>, or while editing or playing back a Zoom Sequence.</p>
+    <table>
+      <tr>
+        <th>Game Controller</th>
+        <th>Keyboard</th>
+        <th>Description</th>
+      </tr>
+      <tr><td>DPad Up button</td><td>Up Arrow</td><td>Moves up one item.</td></tr>
+      <tr><td>DPad Down button</td><td>Down Arrow</td><td>Moves down one item.</td></tr>
+      <tr><td>A button</td><td>Enter</td><td>Selects the current menu item. This displays a submenu for some menu items.</td></tr>
+      <tr><td>DPad Left button</td><td>Left Arrow</td><td>Goes back to parent menu (if any).</td></tr>
+      <tr><td>B button</td><td>Escape</td><td>Closes the menu.</td></tr>
+      <tr><td>Options or Menu button</td><td>&mdash;</td><td>Shows a <a href="#UsingAGameController">labeled drawing</a> of the controller saying what each control does in the current context. While this diagram displays all other controls are blocked; you can press buttons on the game controller and see them highlight in the diagram without actually executing any commands. To close this view, press the Options or Menu button again.</td></tr>
+    </table>
+
+    <h3 id="MainMenu">Main Menu</h3>
+    <p>Items whose name ends in "..." open a submenu. Items marked "(toggle)" change state with each press and show their current value as a suffix, for example "Automatic Horizontal Alignment: Enabled". <b>Delete File</b> and <b>Undo Delete File</b> always sit at the top of the menu, below any <a href="#SessionCommands">Session Commands</a>.</p>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Delete File</td><td>Moves the currently displayed file into the "!StereozoomTrash" folder inside the <a href="#Root3DFolder">Root 3D Folder</a>. Within an app run, you can undelete deleted files via <b>Undo Delete File</b>. Files deleted in an earlier run can be recovered by browsing into the "!StereozoomTrash" folder and using <b>Undo Delete File</b> on them. You may want to periodically delete the contents of the "!StereozoomTrash" folder. Disabled while <a href="#TravelingStereoMode">Traveling Stereo Mode</a> or <a href="#BracketedDepthMode">Bracketed Depth Mode</a> is active.</td></tr>
+      <tr><td>Undo Delete File</td><td>Restores the most recently deleted file. Shown only if a file has been deleted in this session (or if you are browsing inside the "!StereozoomTrash" folder).<br><br>If you are browsing inside the "!StereozoomTrash" folder, this command restores <em>the file you have selected</em> instead, so it also works for files deleted in an earlier run. Stereozoom puts the file back where it came from, finding the folder whose name matches the beginning of the file's name &mdash; so "240101 Snowy Day 0007.jpg" goes back into the "240101 Snowy Day" folder.</td></tr>
+      <tr><td>Preferences...</td><td>Opens the <a href="#PreferencesSubmenu">Preferences submenu</a>.</td></tr>
+      <tr><td>Exit Traveling Stereo Mode<br><br>Exit and Delete This Video</td><td>Shown only while <a href="#TravelingStereoMode">Traveling Stereo Mode</a> is active.</td></tr>
+      <tr><td>Exit Bracketed Depth Mode<br><br>Exit and Move Mono Files to !StereozoomTrash</td><td>Shown only while <a href="#BracketedDepthMode">Bracketed Depth Mode</a> is active.</td></tr>
+      <tr><td>Image Operations...</td><td>Opens the <a href="#ImageOperationsSubmenu">Image Operations submenu</a>. Shown only for images.</td></tr>
+      <tr><td>Export for Sharing...</td><td>Lets you share the active stereo image as a Dubois anaglyph, a grayscale anaglyph, or a wigglegram GIF.</td></tr>
+      <tr><td>Fit &amp; Align...</td><td>Opens the <a href="#FitAndAlignSubmenu">Fit &amp; Align submenu</a>. Shown only for images.</td></tr>
+      <tr><td>Aspect Ratio...</td><td>Opens the <a href="#AspectRatioSubmenu">Aspect Ratio submenu</a>. Choosing an option from this menu restricts the viewable area to the selected aspect ratio. Shown only for images.</td></tr>
+      <tr><td>Zoom Sequences...</td><td>Opens a submenu for creating, saving, cancelling, and combining <a href="#ZoomSequences">Zoom Sequences</a>. Available while capturing a Sequence or while a stereo image is displayed.</td></tr>
+      <tr><td>Enter Bracketed Depth Mode</td><td>Enters <a href="#BracketedDepthMode">Bracketed Depth Mode</a>, which builds stereo pairs from a folder of single photos shot on a camera rail. Available when you are browsing the file system and the folder holds at least two images.</td></tr>
+      <tr><td>Enter Depth Grading Mode</td><td>Enters <a href="#DepthGradingMode">Depth Grading Mode</a>, which adjusts where the depth of the displayed stereo image sits and saves the result as a new file. Shown for stereo images only.</td></tr>
+      <tr><td>Enter Convert to Stereo Mode</td><td>Enters <a href="#ConvertToStereoMode">Convert to Stereo Mode</a>, which estimates depth for the displayed photograph and builds a stereo pair from it. Available whenever a still image is on screen and no other mode is active.</td></tr>
+      <tr><td>Toggle Image/Video Mode: Monoscopic/Stereoscopic</td><td>Flips the currently displayed file between stereo and mono display, for this viewing session only. The override is lost the next time the file is reloaded.</td></tr>
+      <tr><td>Enter Stereo Video Playback Mode</td><td>Enters <a href="#StereoVideoPlaybackMode">Stereo Video Playback Mode</a>. Shown only for videos.</td></tr>
+      <tr><td>Enter Traveling Stereo Mode</td><td>Enters <a href="#TravelingStereoMode">Traveling Stereo Mode</a>, after a dialog that also offers to reencode the clip first for faster frame navigation. Shown only for videos.</td></tr>
+      <tr><td>Rotate Video Clockwise<br><br>Rotate Video Counterclockwise</td><td>Turns the displayed video a quarter turn and writes it back over the original. Shown only for videos. Stereozoom shows a spinner while it re-encodes, and updates the preview when it is done. Note that a long clip can take a while. Two things are worth knowing: a <b>spatial (MV-HEVC) video cannot be rotated</b> &mdash; Stereozoom refuses rather than throw the second eye away, and tells you so &mdash; and turning a <b>side-by-side stereo clip</b> on its side leaves its two eyes stacked one above the other, which nothing can then read as a stereo pair.</td></tr>
+      <tr><td>Play Zoom Sequence</td><td>Plays back the displayed <a href="#ZoomSequences">Zoom Sequence</a>. Shown only for a Zoom Sequence file that holds at least one clip.</td></tr>
+      <tr><td>Edit Zoom Sequence</td><td>Opens Zoom Sequence Editing Mode for the displayed Zoom Sequence. Shown only for a Zoom Sequence file that holds at least one clip.</td></tr>
+      <tr><td>Render Zoom Sequence to Video</td><td>Renders the displayed Zoom Sequence to video. See the Render to video description under <a href="#ZoomSequences">Zoom Sequences</a> for the file formats written. Shown only for a Zoom Sequence file that holds at least one clip.</td></tr>
+      <tr><td>Browse By...</td><td>Opens the <a href="#BrowseSubmenu">Browse submenu</a> to switch the file list between file-system navigation, tag-based browsing, and lists of never-viewed or untagged files.</td></tr>
+      <tr><td>Utilities...</td><td>Opens the <a href="#UtilitiesSubmenu">Utilities submenu</a>. This menu is primarily for troubleshooting, so you may never need to use it.</td></tr>
+      <tr><td>Clear Session Tags</td><td>Resets this session's <a href="#SessionTags">session tags</a> and removes them from the top of the Tagging menu. Only shown for images.</td></tr>
+      <tr><td>Back Up and Quit</td><td>Exports the tag database to a JSON file (for backup), writes folder caches, and quits the app.</td></tr>
+    </table>
+
+    <h3 id="ImageOperationsSubmenu">Image Operations Submenu</h3>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Swap Sides (overwrites original image file)</td><td>Swaps the left and right halves of the image and saves the result back to the original file. Shows a preview first.</td></tr>
+      <tr><td>Flip Horizontally (overwrites original image file)</td><td>Flips the image horizontally and saves the result back to the original file. Shows a preview first.</td></tr>
+      <tr><td>Rotate 180° (overwrites original image file)</td><td>Rotates the image 180 degrees and saves the result back to the original file. Shows a preview first.</td></tr>
+      <tr><td>Crop and Save as New File</td><td>Saves the current view (including any panning/zooming/cropping) as a new SBS image file. Any applied Image Filter or HSB adjustment is NOT baked into the file, but rather is reapplied to the cropped file, so you can undo it if you want. If you want to bake in the changes, use <b>Bake In Adjustments</b>.</td></tr>
+      <tr><td>Crop and Save Over Original</td><td>Same as Crop and Save as New File, but overwrites the original file instead of writing to a new file. Any applied Image Filter or HSB adjustment is NOT baked into the file, but rather is reapplied to the cropped file, so you can undo it if you want. If you want to bake in the changes, use <b>Bake In Adjustments</b>.</td></tr>
+      <tr><td>Adjust HSB</td><td>Enters HSB Adjustment Mode so you can adjust hue, saturation, brightness, gamma, and inversion for the current image. Mutually exclusive with Image Filters.</td></tr>
+      <tr><td>Image Filter...</td><td>Displays the <a href="#ImageFilterSubmenu">Image Filter submenu.</a></td></tr>
+      <tr><td>Bake In Adjustments</td><td>By default, Image Filters and HSB adjustments are not baked into image files. This command permanently bakes such adjustments into the selected image file. Note that <b>this will overwrite the original version of the active image file</b>. If you want to keep the original unchanged, choose <b>Menu > Crop and Save as New File</b> first.</td></tr>
+      <tr><td>Full Realign (overwrites original image file)</td><td>Attempts to comprehensively realign the original image. When it finishes, the realigned pair is shown with a <b>Save updated alignment?</b> prompt over it. That preview is fully live: you can pan, zoom and adjust the horizontal alignment while the prompt is up, so you can look closely at the alignment anywhere in the frame before deciding. Hold the Right Trigger button (keyboard Q) to show the unaligned image. You can pan and zoom on the preview to check alignment closely.<br><br>Note that this process can take a long time, especially on slower computers. While it is still working, you can press the B button (keyboard B) to cancel it.</td></tr>
+      <tr><td>Realign All Images in This Folder (overwrites the original image files)</td><td>Runs the same alignment as Full Realign over every stereo image in the current folder, saving each one over itself. It runs in the background, so you can keep browsing while it works: you will see a message when it starts, and another when it finishes. Subfolders are not processed. Any file that cannot be realigned, is already correctly aligned, or is a single-view (mono) image is left exactly as it was. <b>This cannot be undone</b>, and on a large folder of big images it can take a long time. If you choose <b>Back Up and Quit</b> while it is still working, Stereozoom tells you so and stays open until it has finished, then quits by itself. You can also monitor the progress of a folder realign in the Info View.</td></tr>
+    </table>
+
+    <p><b>Swap Sides</b>, <b>Flip Horizontally</b>, and <b>Rotate 180°</b> (<a href="#ImageOperationsSubmenu">Image Operations submenu</a>) overwrite the original image file, so each one shows you the result first and asks you to confirm it. You can zoom and pan around the preview to verify that it looks correct before you save it.</p>
+  
+    <h3 id="ImageFilterSubmenu">Image Filter Submenu</h3>
+    <p>Selecting an Image Filter applies it to the current image. Image Filters and HSB adjustments are mutually exclusive — choosing an Image Filter clears any saved HSB values for the current image, and vice-versa.</p>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>None</td><td>Removes any Image Filter from the current image.</td></tr>
+      <tr><td>B&amp;W</td><td>Converts the image to black and white.</td></tr>
+      <tr><td>B&amp;W Blue Filter</td><td>Black and white, as if shot through a blue filter.</td></tr>
+      <tr><td>B&amp;W Green Filter</td><td>Black and white, as if shot through a green filter.</td></tr>
+      <tr><td>B&amp;W Red Filter</td><td>Black and white, as if shot through a red filter.</td></tr>
+      <tr><td>Color Halftone</td><td>Renders the image as a CMYK halftone print.</td></tr>
+      <tr><td>Glowing Edges</td><td>Shows only the image's edges, glowing against a dark background.</td></tr>
+      <tr><td>Halftone</td><td>Renders the image as a black-and-white dot screen.</td></tr>
+      <tr><td>Hexagonal Pixelate</td><td>Breaks the image into hexagonal tiles.</td></tr>
+      <tr><td>Invert</td><td>Inverts the image's colors, like a color negative.</td></tr>
+      <tr><td>Inverted B&amp;W</td><td>Black and white with tones inverted, like a black-and-white negative.</td></tr>
+      <tr><td>Noir</td><td>High-contrast black and white.</td></tr>
+      <tr><td>Pointillize</td><td>Renders the image as colored dots.</td></tr>
+      <tr><td>Sepia</td><td>Gives the image an antique brown tone.</td></tr>
+      <tr><td>Sharpen (Unsharp Mask)</td><td>Sharpens fine detail.</td></tr>
+      <tr><td>Sketch</td><td>Renders the image as a line drawing on white.</td></tr>
+      <tr><td>Woodcut</td><td>Renders the image as a black-and-white woodcut.</td></tr>
+    </table>
+
+    <h3 id="FitAndAlignSubmenu">Fit &amp; Align Submenu</h3>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Fit Height</td><td>Image fills the view vertically.</td></tr>
+      <tr><td>Fit Width</td><td>Image fills the view horizontally.</td></tr>
+      <tr><td>Align Right</td><td>Shifts the image so its right edge meets the right edge of the view.</td></tr>
+      <tr><td>Align Left</td><td>Shifts the image so its left edge meets the left edge of the view.</td></tr>
+      <tr><td>Align Top</td><td>Shifts the image so its top edge meets the top edge of the view.</td></tr>
+      <tr><td>Align Bottom</td><td>Shifts the image so its bottom edge meets the bottom edge of the view.</td></tr>
+    </table>
+
+    <h3 id="AspectRatioSubmenu">Aspect Ratio Submenu</h3>
+    <p>This submenu controls how the app crops the display area. This is mainly intended for when you are preparing to <a href="#Cropping">crop an image</a>.</p>
+
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Normal</td><td>The image fills the screen completely.</td></tr>
+      <tr><td>Square</td><td>The image is constrained to a square.</td></tr>
+      <tr><td>Realist</td><td>The image is constrained to a 1:1.05 aspect ratio (like a Stereo Realist slide).</td></tr>
+      <tr><td>4:3</td><td>The image is constrained to a 4:3 aspect ratio.</td></tr>
+      <tr><td>3:2</td><td>The image is constrained to a 3:2 aspect ratio.</td></tr>
+    </table>
+
+    <h3 id="BrowseSubmenu">Browse Submenu</h3>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Browse File System</td><td>Switches the file list to file-system navigation (the default).</td></tr>
+      <tr><td>Browse By Tags AND</td><td>Switches the file list to <a href="#BrowsingByImageTag">tag-based browsing</a>, where only files matching <b>all</b> of the tags you select are shown.</td></tr>
+      <tr><td>Browse By Tags OR</td><td>Switches the file list to <a href="#BrowsingByImageTag">tag-based browsing</a>, where files matching <b>any</b> of the tags you select are shown.</td></tr>
+      <tr><td>Never Viewed in This Folder</td><td>Lists every image and video in the current folder <em>and all of its subfolders</em> that you have never viewed. If there are none, a message says so and the file list stays as it was.</td></tr>
+      <tr><td>Untagged in This Folder</td><td>Lists every image and video in the current folder <em>and all of its subfolders</em> that has no image tags. If there are none, a message says so and the file list stays as it was.</td></tr>
+    </table>
+
+    <h3 id="PreferencesSubmenu">Preferences Submenu</h3>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Font Size...</td><td>Displays the <a href="#FontSizeSubmenu">Font Size submenu</a>.</td></tr>
+      <tr><td>Pan Speed...</td><td>Displays the <a href="#PanAndZoomSpeedSubmenu">Pan Speed submenu</a>, which sets how fast the Left Thumbstick (or the arrow keys) pans the image.</td></tr>
+      <tr><td>Zoom Speed...</td><td>Displays the <a href="#PanAndZoomSpeedSubmenu">Zoom Speed submenu</a>, which sets how fast the Right Thumbstick (or the , and . keys) zooms.</td></tr>
+      <tr><td>Thumbnail Caching (toggle)</td><td>When this is on, the app caches thumbnails so that they load more quickly. Thumbnail files are very small (typically 2-5 kilobytes each), but if you are short on space, you can turn this feature off, and all thumbnails will be deleted.</td></tr>
+      <tr><td>Save Format...</td><td>Displays the <a href="#SaveFormatSubmenu">Save Format Submenu</a>, which lets you select the output format for files created by the app.</td></tr>
+      <tr><td>JPEG Quality...</td><td>Displays the <a href="#JPEGQualitySubmenu">JPEG Quality Submenu</a>, which lets you specify the quality of JPEG images created in the app.</td></tr>
+      <tr><td>Bracketed Depth Rail Step...</td><td>The distance the camera moved between consecutive frames in a <a href="#BracketedDepthMode">Bracketed Depth Mode</a> folder. Used only when a pair is saved as a Spatial Photo, where it supplies the real stereo baseline; it has no effect on JPEG or PNG output.</td></tr>
+      <tr><td>Slide Projector Mode (toggle)</td><td>If this feature is on, a black screen and loading indicator briefly display when you switch images. The purpose of the feature is to hide the image while it automatically aligns, but the result feels a bit like watching a slideshow on an old-style slide projector.</td></tr>
+      <tr><td>Grade for Comfort (toggle)</td><td>If this feature is on, the app attempts to <a href="#DepthGradingMode">depth-grade</a> the image so that it is easy on the eyes. The graded image replaces the original a moment after the original appears. This affects display only, and saves no changes.<br><br>Note that the quality of this feature is dependent on the quality of the depth map created by the app, and currently the app's depth maps are not perfect.</td></tr>
+      <tr><td>Alignment...</td><td>Displays the <a href="#AlignmentSubmenu">Alignment submenu</a>.</td></tr>
+      <tr><td>Advanced...</td><td>Displays the <a href="#AdvancedPreferencesSubmenu">Advanced Preferences Submenu</a>.</td></tr>
+    </table>
+
+    <h3 id="AlignmentSubmenu">Alignment Submenu</h3>
+    <p>Everything that decides how the left and right images are registered against each other. Every item is a setting that stays in force until you change it. (Full Realign and Realign All Images in This Folder, which rewrite image files, are in the <a href="#ImageOperationsSubmenu">Image Operations submenu</a>.)</p>
+    <p>Note that the <a href="#FitAndAlignSubmenu">Fit &amp; Align submenu</a> is a different thing despite the name: its Align Left/Right/Top/Bottom items move the view around inside the window and have nothing to do with stereo alignment.</p>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Automatic Horizontal Alignment (toggle)</td><td>Turns automatic <a href="#HorizontalAlignment">horizontal alignment</a> on or off.</td></tr>
+      <tr><td>Automatic Horizontal Alignment Method...</td><td>Displays the <a href="#AutomaticAlignmentSetting">Automatic Horizontal Alignment method</a> submenu.</td></tr>
+      <tr><td>Manual Horizontal Alignment (toggle)</td><td>Turns manual <a href="#HorizontalAlignment">horizontal alignment</a> on or off. If Automatic Horizontal Alignment is also on, you can adjust alignment after the automatic alignment settles.</td></tr>
+      <tr><td>Alignment Speed...</td><td>How fast the right thumbstick moves the alignment when you adjust it by hand.</td></tr>
+      <tr><td>Automatic Vertical Alignment (toggle)</td><td>When enabled, the app attempts to vertically align every image. Use this setting ONLY WHEN IMAGES ARE VISIBLY MISALIGNED. Automatic Vertical Alignment can cause misalignment in already-aligned images.</td></tr>
+      <tr><td>Automatic Rotational Alignment (toggle)</td><td>When this is enabled, the app attempts to rotationally align every image. Use this setting ONLY WHEN IMAGES ARE VISIBLY MISALIGNED. Automatic Rotational Alignment can cause misalignment in already-aligned images.</td></tr>
+      <tr><td>Ignore Edges During Automatic Horizontal Alignment (toggle)</td><td>Ignores about 15% of the border of the image when attempting Automatic Horizontal Alignment, and limits how large an alignment the app will accept. This feature can be useful if you have stereoscopic slide scans that include visible mount edges. It has no effect in <a href="#BracketedDepthMode">Bracketed Depth Mode</a>, <a href="#TravelingStereoMode">Traveling Stereo Mode</a> or <a href="#ConvertToStereoMode">Convert to Stereo Mode</a>, where the images are camera originals, video frames or synthesized views rather than slide scans, and where large alignments are normal rather than a sign of trouble.</td></tr>
+    </table>
+
+    <h3 id="AdvancedPreferencesSubmenu">Advanced Preferences Submenu</h3>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Show Frequently Used Tags</td><td>Lets you turn the <a href="#MostFrequentlyUsedTags">Most Frequently Used Tags</a> feature on and off.</td></tr>
+      <tr><td>Show Session Tags</td><td>Lets you turn the <a href="#SessionTags">Session Tags</a> feature on and off.</td></tr>
+      <tr><td>Show Session Commands</td><td>Lets you turn the <a href="#SessionCommands">Session Commands</a> feature on and off.</td></tr>
+      <tr><td>Clean Up Edges (toggle)</td><td>Dynamically trims away any areas on the left or right where we only have image data for one eye. Having this feature on results in clean left and right edges.</td></tr>
+      <tr><td>Full Resolution Video in Traveling Stereo Mode</td><td>If this is disabled, frames in Traveling Stereo Mode display at half resolution for speed and efficiency (note that even if this is on, saved stereo pairs are always at full resolution). If you have a fast Mac, you can enable this feature and use Traveling Stereo Mode at full resolution.</td></tr>
+      <tr><td>Zoom Sequence Easing...</td><td>Chooses the easing curve for the transitions in a <a href="#ZoomSequences">Zoom Sequence</a>: <b>Linear</b>, <b>Ease In/Out Default</b> (the default) or <b>Ease In/Out Shallow</b>.</td></tr>
+      <tr><td>Zoom Sequence Frame Rate...</td><td>Chooses the frame rate of video rendered from a Zoom Sequence: <b>24 fps</b>, <b>30 fps</b> (the default) or <b>60 fps</b>. The length of the video is the same at any frame rate.</td></tr>
+      <tr><td>Zoom Sequence Video Format...</td><td>Chooses which files <b>Render Zoom Sequence to Video</b> writes: <b>Side by Side</b> (the default), <b>Spatial (MV-HEVC)</b> or <b>Both</b>. See <a href="#PlayingAndRenderingAZoomSequence">Playing and Rendering a Zoom Sequence</a>.</td></tr>
+      <tr id="ChangeRoot3DFolder"><td>Change Root 3D Folder</td><td>Lets you pick a new <a href="#Root3DFolder">Root 3D Folder</a>. The app will attempt to find files in the database by name, but nevertheless, running this command can break links to existing image records.</td></tr>
+    </table>
+
+    <h3 id="FontSizeSubmenu">Font Size Submenu</h3>
+    <p>Note: Changes to the Font Size setting do not take effect until you close the menu.</p>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Small</td><td>Smallest size (the default).</td></tr>
+      <tr><td>Medium</td><td>Medium size.</td></tr>
+      <tr><td>Large</td><td>Largest size.</td></tr>
+    </table>
+
+    <h3 id="PanAndZoomSpeedSubmenu">Pan Speed and Zoom Speed Submenus</h3>
+    <p>Pan Speed and Zoom Speed are separate settings with the same four choices.</p>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Slow</td><td>Slowest rate.</td></tr>
+      <tr><td>Medium</td><td>Default rate.</td></tr>
+      <tr><td>Fast</td><td>Faster rate.</td></tr>
+      <tr><td>Very Fast</td><td>Fastest rate.</td></tr>
+    </table>
+
+    <h3 id="SaveFormatSubmenu">Save Format Submenu</h3>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>JPEG</td><td>All image files are saved in JPEG format.</td></tr>
+      <tr><td>PNG</td><td>All image files are saved in PNG format.</td></tr>
+      <tr><td>Spatial Photo</td><td>All image files are saved as Spatial Photos in HEIF format.</td></tr>
+    </table>
+
+    <h3 id="JPEGQualitySubmenu">JPEG Quality Submenu</h3>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Good</td><td>Saves JPEG files with a quality setting of 0.9.</td></tr>
+      <tr><td>Better</td><td>Saves JPEG files with a quality setting of 0.95.</td></tr>
+      <tr><td>Best</td><td>Saves JPEG files with a quality setting of 1.0.</td></tr>
+    </table>
+
+    <h3 id="UtilitiesSubmenu">Utilities Submenu</h3>
+    <table>
+      <tr><th>Item</th><th>Description</th></tr>
+      <tr><td>Clear Thumbnails for This Folder</td><td>Deletes all cached thumbnails for the current folder. Does not turn thumbnail caching on or off.</td></tr>
+      <tr><td>Clear All Thumbnails</td><td>Deletes all cached thumbnails for all folders inside the Root 3D Folder. They will be regenerated when required.</td></tr>
+      <tr><td>Clear Mono/Stereo Flag for This Folder</td><td>Discards the current folder's saved monoscopic/stereoscopic flag and detects it again. See <a href="#RefreshingTheFlagForAFolder">Refreshing the Flag for a Folder</a>.</td></tr>
+      <tr><td>Reset Video Speed Limit</td><td>Discards the measurement of which fast-forward and fast-reverse speeds this Mac can show with a picture, so every speed shows the picture again until it is re-measured the next time you play a video. See <a href="#StereoVideoPlaybackMode">Stereo Video Playback Mode</a>.</td></tr>
+      <tr><td>Rescan Stereo Folder</td><td>Use this only if you have moved or deleted files in your <a href="#Root3DFolder">Root 3D Folder</a>. The app attempts to find any files that have been moved and reassociate them with their database records, but success is not guaranteed.</td></tr>
+      <tr><td>Save Database to JSON File</td><td>Exports the entire database to a JSON file at the location you specify. For troubleshooting only.</td></tr>
+      <tr><td>Reload Database from JSON File</td><td>Imports the tag and image-record database from a previously exported JSON file. For reverting to a backup only.</td></tr>
+      <tr><td>Delete All Image Records for Missing Files</td><td>Removes any database records whose underlying files no longer exist on disk.</td></tr>
+      <tr><td>Delete Image Tags for Files in This Folder</td><td>Removes every image tag from the image files in the current folder. Subfolders are not affected, and no other saved settings (alignment, zoom, HSB, filters) are changed.</td></tr>
+      <tr><td>Refresh File Array for This Folder</td><td>Reloads the current folder's file list from disk, replacing any cached folder information. You should not need to use this command.</td></tr>
+      <tr><td>Empty Trash</td><td>Moves everything in the "!StereozoomTrash" folder (at the top of your <a href="#Root3DFolder">Root 3D Folder</a>) to the system Trash, and removes those files' database records. The files can still be recovered from the system Trash, but not from inside Stereozoom -- <b>Undo Delete File</b> can no longer reach them. Shown only when the "!StereozoomTrash" folder is not empty.</td></tr>
+    </table>
+
+    <br/>
+    <br/>
+
+  </body>
+</html>
